@@ -1,26 +1,323 @@
-@import "tailwindcss";
+/* CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font declarations */
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/Fonts/Helvetica/Helvetica.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/Fonts/Helvetica/Helvetica-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/Fonts/Helvetica/Helvetica-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('/Fonts/Helvetica/Helvetica-BoldOblique.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Light';
+  src: url('/Fonts/Helvetica/helvetica-light-587ebe5a59211.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Kabel';
+  src: url('/Fonts/Neue-Kabel/NeueKabel.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Kabel';
+  src: url('/Fonts/Neue-Kabel/NeueKabel-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Kabel';
+  src: url('/Fonts/Neue-Kabel/NeueKabel-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Kabel';
+  src: url('/Fonts/Neue-Kabel/NeueKabel-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Kabel';
+  src: url('/Fonts/Neue-Kabel/NeueKabel-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary colors */
+  --primary: #B22222; /* Firebrick red */
+  --primary-dark: #8B0000; /* Dark red */
+  --primary-light: #FF6347; /* Tomato */
+  
+  /* Secondary colors */
+  --secondary: #FFD700; /* Gold */
+  --secondary-dark: #DAA520; /* Goldenrod */
+  --secondary-light: #FFDF54; /* Light gold */
+  
+  /* Accent colors */
+  --accent-green: #006400; /* Dark green */
+  --accent-black: #111111; /* Off-black */
+  
+  /* Neutral colors */
+  --neutral-white: #FFFFFF;
+  --neutral-offwhite: #F8F8F8;
+  --neutral-light: #E5E5E5;
+  --neutral-medium: #AAAAAA;
+  --neutral-dark: #333333;
+  
+  /* Text colors */
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --text-light: #555555;
+  --text-white: #FFFFFF;
+
+  /* Background colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F5;
+  --bg-accent: #FFFAF0; /* Floral white */
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 8rem;
+  
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: var(--bg-primary);
+    font-size: 1rem;
+    font-family: 'Helvetica', sans-serif;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Neue Kabel', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+    margin-bottom: 1.25rem;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+    margin-bottom: 1rem;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+    margin-bottom: 0.75rem;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--primary-dark);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1280px;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-bold transition-all duration-300;
+    font-family: 'Helvetica', sans-serif;
+  }
+  
+  .btn-primary {
+    @apply bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)];
+  }
+  
+  .btn-secondary {
+    @apply bg-[var(--secondary)] text-[var(--text-primary)] hover:bg-[var(--secondary-dark)];
+  }
+  
+  .btn-outline {
+    @apply border-2 border-[var(--primary)] text-[var(--primary)] bg-transparent hover:bg-[var(--primary)] hover:text-white;
+  }
+  
+  .section {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden;
+  }
+  
+  .input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .font-helvetica {
+    font-family: 'Helvetica', sans-serif;
+  }
+  
+  .font-neue-kabel {
+    font-family: 'Neue Kabel', sans-serif;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.8s ease forwards;
+  }
+  
+  .gradient-text {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Scroll reveal utilities */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+  
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
 }

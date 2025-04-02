@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Black History Foundation Website
+
+A modern responsive website for The Black History Foundation (TBHF), a non-profit organization dedicated to preserving and promoting Black history and cultural heritage.
+
+## Features
+
+- Responsive design that works well on mobile, tablet, and desktop
+- Interactive elements including scroll animations and hover effects
+- Comprehensive information about the foundation's mission and programs
+- User-friendly donation system with various payment options
+- Volunteer application form and information
+- Contact form for inquiries and partnership opportunities
+
+## Pages
+
+- **Home** - Main landing page showcasing the foundation's mission and key information
+- **About** - Detailed information about the foundation, team, and programs
+- **Volunteer** - Information about volunteer opportunities and an application form
+- **Contact** - Contact information and a contact form
+- **Donate** - Donation form with various payment options
+
+## Design System
+
+The website follows a cohesive design system:
+
+- **Typography**:
+  - **Helvetica** - Used for body text and general content for clarity and readability
+  - **Neue Kabel** - Used for headings and important text to create visual interest
+
+- **Colors**:
+  - Primary: Firebrick Red (#B22222)
+  - Secondary: Gold (#FFD700)
+  - Accent: Dark Green (#006400)
+  - Neutrals: Varying shades of black, white, and gray
+
+- **Visual Elements**:
+  - Interactive waves background on the homepage
+  - Scroll animations for content sections
+  - Hover effects on interactive elements
+  - Consistent spacing and layout principles
+
+## Technology Stack
+
+- **Next.js** - React framework for server-side rendering and static site generation
+- **TypeScript** - For type safety and better developer experience
+- **Tailwind CSS** - For styling components
+- **Framer Motion** - For animations and transitions
+- **React Intersection Observer** - For scroll-based animations
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (v18 or newer)
+- pnpm package manager
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Run the development server:
+```bash
+pnpm dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Open your browser and navigate to `http://localhost:3000`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Building for Production
 
-## Learn More
+```bash
+pnpm build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is licensed under the MIT License.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Acknowledgements
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Design inspired by modern non-profit websites
+- Images from various sources (placeholder images used for demonstration)
