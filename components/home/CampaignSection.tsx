@@ -183,11 +183,58 @@ const CampaignSection = () => {
           </motion.div>
         </div>
 
-        {/* CTA */}
+        {/* Cruise Promotion */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-16 bg-gradient-to-r from-primary to-primary-dark rounded-xl shadow-xl overflow-hidden"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="p-8 flex items-center">
+              <div>
+                <span className="inline-block py-1 px-3 rounded-full bg-secondary text-navy font-helvetica font-medium text-sm mb-4">
+                  New for 2025
+                </span>
+                <h3 className="font-neue-kabel font-bold text-2xl md:text-3xl text-white mb-4">
+                  Black History Caribbean Cruise
+                </h3>
+                <p className="font-helvetica text-white opacity-90 mb-6">
+                  Join us on a 7-day cultural journey through the Caribbean, exploring the rich history of the African diaspora while enjoying luxury accommodations and exclusive educational experiences.
+                </p>
+                <Button 
+                  href="/cruise" 
+                  variant="secondary" 
+                  size="lg"
+                  className="shadow-lg"
+                >
+                  Explore the Cruise
+                </Button>
+              </div>
+            </div>
+            <div className="bg-ocean h-64 md:h-auto relative overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img 
+                  src="/images/cruise-promo.jpg" 
+                  alt="Caribbean Cruise" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1548574505-5e239809ee19?q=80&w=1064";
+                  }}
+                />
+                <div className="absolute top-0 right-0 bg-secondary text-navy font-bold py-2 px-4 rotate-12 translate-x-4 -translate-y-2 text-sm">
+                  Limited Cabins!
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-16 text-center"
         >
           <h3 className="font-neue-kabel font-bold text-2xl mb-4">How You Can Help</h3>

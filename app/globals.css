@@ -96,19 +96,20 @@ html {
 }
 
 :root {
-  /* Primary colors */
-  --primary: #B22222; /* Firebrick red */
-  --primary-dark: #8B0000; /* Dark red */
-  --primary-light: #FF6347; /* Tomato */
+  /* Primary colors - Updated for cruise theme */
+  --primary: #006994; /* Ocean Blue */
+  --primary-dark: #005275; /* Deep Sea Blue */
+  --primary-light: #4AB3D9; /* Sky Blue */
   
   /* Secondary colors */
-  --secondary: #FFD700; /* Gold */
-  --secondary-dark: #DAA520; /* Goldenrod */
-  --secondary-light: #FFDF54; /* Light gold */
+  --secondary: #F2B134; /* Sunshine Yellow */
+  --secondary-dark: #E09F22; /* Golden Sunset */
+  --secondary-light: #F7C768; /* Light Gold */
   
   /* Accent colors */
-  --accent-green: #006400; /* Dark green */
-  --accent-black: #111111; /* Off-black */
+  --accent-green: #2E8B57; /* Sea Green */
+  --accent-black: #0D1B2A; /* Deep Navy */
+  --accent-coral: #FF7F50; /* Coral */
   
   /* Neutral colors */
   --neutral-white: #FFFFFF;
@@ -118,15 +119,16 @@ html {
   --neutral-dark: #333333;
   
   /* Text colors */
-  --text-primary: #111111;
-  --text-secondary: #333333;
-  --text-light: #555555;
+  --text-primary: #0D1B2A; /* Deep Navy */
+  --text-secondary: #415A77; /* Slate Blue */
+  --text-light: #778DA9; /* Light Slate */
   --text-white: #FFFFFF;
 
   /* Background colors */
   --bg-primary: #FFFFFF;
   --bg-secondary: #F5F5F5;
-  --bg-accent: #FFFAF0; /* Floral white */
+  --bg-accent: #E0F7FA; /* Light Cyan */
+  --bg-ocean: #E3F2FD; /* Very Light Blue */
   
   /* Spacing */
   --spacing-xs: 0.25rem;

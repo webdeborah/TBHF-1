@@ -16,6 +16,7 @@ const Footer = () => {
     getInvolved: [
       { name: "Volunteer", path: "/volunteer" },
       { name: "Donate", path: "/donate" },
+      { name: "Join Our Cruise", path: "/cruise" },
       { name: "Fundraise", path: "/volunteer#fundraise" },
       { name: "Partner With Us", path: "/contact#partner" },
     ],
