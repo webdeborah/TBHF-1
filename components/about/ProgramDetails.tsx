@@ -98,7 +98,8 @@ const ProgramDetails = () => {
             "Systematic recording of traditions, practices, and knowledge that might otherwise be lost.",
         },
       ],
-      image: "https://unsplash.com/photos/person-using-macbook-pro-npxXWgQ33ZQ",
+      image:
+        "https://plus.unsplash.com/premium_photo-1713890424186-11d3584a22fc?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8RWR1Y2F0aW9uJTIwcHJvZ3JhbXxlbnwwfHwwfHx8MA%3D%3D",
     },
     community: {
       title: "Community Engagement",
