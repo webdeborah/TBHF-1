@@ -22,7 +22,7 @@ const TeamSection = () => {
       name: "Deborah Sieh",
       role: "Board Member",
       bio: "Deborah is a historian specializing in African diaspora studies with extensive research experience.",
-      image: "/images/team-2.jpg"
+      image: "/deborahsieh.jpg"
     },
     {
       name: "Mike Evans",
