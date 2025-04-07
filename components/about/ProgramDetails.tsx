@@ -59,9 +59,9 @@ const ProgramDetails = () => {
             "Immersive historical recreations that transport users to significant moments and places in Black history.",
         },
         {
-          title: "Blockchain Verification",
+          title: "Decentralized Decision-Making Environment(DDME)",
           description:
-            "Using blockchain technology to authenticate and preserve historical records with tamper-proof verification.",
+            "A blockchain-based platform that will foster collaboration and community engagement by providing digital forums and crowdsourced archives for documenting and preserving African history and culture.",
         },
         {
           title: "AI-Powered Preservation",

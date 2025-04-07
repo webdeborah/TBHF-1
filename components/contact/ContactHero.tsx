@@ -50,7 +50,7 @@ const ContactHero = () => {
               <h3 className="font-neue-kabel font-bold text-lg mb-2">Call Us</h3>
               <p className="font-helvetica text-[var(--text-secondary)]">
                 <a href="tel:+12025551234" className="hover:text-[var(--primary)]">
-                  (202) 555-1234
+                  (661) 524-6674
                 </a>
               </p>
             </div>
@@ -62,10 +62,10 @@ const ContactHero = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="font-neue-kabel font-bold text-lg mb-2">Visit Us</h3>
+              <h3 className="font-neue-kabel font-bold text-lg mb-2">Our Office</h3>
               <p className="font-helvetica text-[var(--text-secondary)]">
-                1234 History Lane<br />
-                Washington, DC 20001
+                30 N Gould Street Ste R<br />
+                Sheridan, WY 82801
               </p>
             </div>
           </motion.div>

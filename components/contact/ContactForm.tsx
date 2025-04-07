@@ -213,7 +213,7 @@ const ContactForm = () => {
                   <h4 className="font-neue-kabel font-bold text-lg">Social Media</h4>
                   <div className="flex flex-wrap gap-4">
                     <a
-                      href="https://facebook.com"
+                      href="https://www.facebook.com/theblackhistoryfoundation"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors"
@@ -235,7 +235,7 @@ const ContactForm = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://instagram.com"
+                      href="https://www.instagram.com/theblackhistoryfdn/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors"
@@ -246,7 +246,7 @@ const ContactForm = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://linkedin.com"
+                      href="https://www.linkedin.com/company/theblackhistoryfoundation/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-colors"

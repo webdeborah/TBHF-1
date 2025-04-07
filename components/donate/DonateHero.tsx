@@ -45,7 +45,7 @@ const DonateHero = () => {
               <p className="font-helvetica text-gray-200">Fundraising Goal</p>
             </div>
             <div className="bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-lg p-6 text-center">
-              <div className="font-neue-kabel font-black text-2xl md:text-3xl mb-2 text-[var(--secondary)]">$3.25M</div>
+              <div className="font-neue-kabel font-black text-2xl md:text-3xl mb-2 text-[var(--secondary)]">$0M</div>
               <p className="font-helvetica text-gray-200">Raised So Far</p>
             </div>
             <div className="bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-lg p-6 text-center">
@@ -68,7 +68,7 @@ const DonateHero = () => {
                 className="h-full bg-[var(--secondary)] rounded-full"
               ></motion.div>
             </div>
-            <p className="font-helvetica text-right mt-2 text-sm text-gray-200">65% of our goal</p>
+            <p className="font-helvetica text-right mt-2 text-sm text-gray-200">1% of our goal</p>
           </motion.div>
           
           <motion.div

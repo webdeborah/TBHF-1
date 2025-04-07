@@ -69,21 +69,21 @@ const AboutHero = () => {
               <h3 className="font-neue-kabel font-bold text-[var(--secondary)] mb-2">
                 Founded
               </h3>
-              <p className="font-helvetica text-2xl">2018</p>
+              <p className="font-helvetica text-2xl">2023</p>
             </div>
 
             <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20 text-center w-full sm:w-60">
               <h3 className="font-neue-kabel font-bold text-[var(--secondary)] mb-2">
                 Communities
               </h3>
-              <p className="font-helvetica text-2xl">75+</p>
+              <p className="font-helvetica text-2xl">10+</p>
             </div>
 
             <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20 text-center w-full sm:w-60">
               <h3 className="font-neue-kabel font-bold text-[var(--secondary)] mb-2">
                 Volunteers
               </h3>
-              <p className="font-helvetica text-2xl">500+</p>
+              <p className="font-helvetica text-2xl">100+</p>
             </div>
           </motion.div>
         </div>

@@ -115,7 +115,7 @@ const DonateImpact = () => {
             Monthly Giving Program
           </h3>
           <p className="font-helvetica text-[var(--text-secondary)] mb-6 text-center">
-            Join our Guardians of History monthly giving program and provide sustainable support for our mission. Monthly donors receive special updates, exclusive event invitations, and recognition on our website.
+            Join our KEEP HISTORY ALIVE monthly giving program and provide sustainable support for our mission. Monthly donors receive special updates, exclusive event invitations, and recognition on our website.
           </p>
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center p-4 bg-white rounded-lg shadow-sm">

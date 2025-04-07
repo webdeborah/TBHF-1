@@ -79,7 +79,7 @@ const CampaignSection = () => {
         >
           <div className="flex justify-between mb-2">
             <span className="font-neue-kabel font-bold">Fundraising Progress</span>
-            <span className="font-helvetica font-bold">$3.25M / $5M</span>
+            <span className="font-helvetica font-bold">$.5M / $5M</span>
           </div>
           <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
             <motion.div

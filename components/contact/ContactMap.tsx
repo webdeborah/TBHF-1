@@ -23,7 +23,7 @@ const ContactMap = () => {
               Visit Our Office
             </h2>
             <p className="font-helvetica text-[var(--text-secondary)] max-w-2xl mx-auto">
-              Our headquarters is located in Washington, DC. We welcome visitors during our office hours, Monday through Friday from 9:00 AM to 5:00 PM.
+              Our headquarters is located in Sheridan, WY.
             </p>
           </div>
           
@@ -48,8 +48,8 @@ const ContactMap = () => {
               <div>
                 <h3 className="font-neue-kabel font-bold text-lg mb-2">Address</h3>
                 <p className="font-helvetica text-[var(--text-secondary)]">
-                  1234 History Lane<br />
-                  Washington, DC 20001<br />
+                  30 Gould Street Ste R<br />
+                  Sheridan, WY 82801<br />
                   United States
                 </p>
               </div>
@@ -66,8 +66,8 @@ const ContactMap = () => {
               <div>
                 <h3 className="font-neue-kabel font-bold text-lg mb-2">Getting Here</h3>
                 <p className="font-helvetica text-[var(--text-secondary)]">
-                  <span className="font-bold">Public Transit:</span> 2 blocks from Metro Center station<br />
-                  <span className="font-bold">Parking:</span> Limited street parking, paid garage available nearby<br />
+                  <span className="font-bold">Public Transit:</span> <br />
+                  <span className="font-bold">Parking:</span> Limited street parking<br />
                   <span className="font-bold">Accessibility:</span> Fully wheelchair accessible
                 </p>
               </div>
