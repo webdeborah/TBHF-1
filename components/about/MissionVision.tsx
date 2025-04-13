@@ -25,7 +25,7 @@ const MissionVision = () => {
                 className="rounded-lg overflow-hidden shadow-xl"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1515658323406-25d61c141a6e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y3VsdHVyZXxlbnwwfHwwfHx8MA%3D%3D"
+                  src="/handunderthefire.svg"
                   alt="Our mission"
                   className="w-full h-auto rounded-lg"
                 />

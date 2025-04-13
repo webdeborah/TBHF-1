@@ -20,7 +20,7 @@ const ContactMap = () => {
         >
           <div className="text-center mb-12">
             <h2 className="font-neue-kabel font-bold text-3xl md:text-4xl mb-4">
-              Visit Our Office
+              Our Location
             </h2>
             <p className="font-helvetica text-[var(--text-secondary)] max-w-2xl mx-auto">
               Our headquarters is located in Sheridan, WY.
@@ -61,16 +61,7 @@ const ContactMap = () => {
                   9:00 AM - 5:00 PM<br />
                   Closed on weekends and federal holidays
                 </p>
-              </div>
-              
-              <div>
-                <h3 className="font-neue-kabel font-bold text-lg mb-2">Getting Here</h3>
-                <p className="font-helvetica text-[var(--text-secondary)]">
-                  <span className="font-bold">Public Transit:</span> <br />
-                  <span className="font-bold">Parking:</span> Limited street parking<br />
-                  <span className="font-bold">Accessibility:</span> Fully wheelchair accessible
-                </p>
-              </div>
+              </div>          
             </div>
           </div>
         </motion.div>

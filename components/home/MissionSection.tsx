@@ -20,7 +20,7 @@ const MissionSection = () => {
                 className="rounded-lg overflow-hidden"
               >
                 <img
-                  src="https://plus.unsplash.com/premium_photo-1679809447949-b15690ccf840?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y3VsdHVyYWwlMjBwcmVzZXJ2YXRpb258ZW58MHx8MHx8fDA%3D"
+                  src="/safeguard african history hands.webp"
                   alt="Black history preservation"
                   className="w-full h-auto rounded-lg"
                 />
