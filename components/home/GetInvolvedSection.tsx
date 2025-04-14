@@ -159,7 +159,7 @@ const GetInvolvedSection = () => {
                     <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
                       <img
                         src={testimonials[activeTestimonial].image}
-                        alt={testimonials[activeTestimonial].name}
+                        alt={`${testimonials[activeTestimonial].name}, ${testimonials[activeTestimonial].role} - Volunteer testimonial for The Black History Foundation`}
                         className="w-full h-full object-cover"
                       />
                     </div>

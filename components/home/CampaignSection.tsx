@@ -265,7 +265,7 @@ const CampaignSection = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <img
                   src="/images/cruise-promo.jpg"
-                  alt="Caribbean Cruise"
+                  alt="Black History Foundation Caribbean Cruise - Educational and cultural journey through historically significant Caribbean islands"
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     e.currentTarget.src =

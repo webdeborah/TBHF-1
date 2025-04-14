@@ -72,7 +72,7 @@ const TeamSection = () => {
               <div className="h-64 overflow-hidden">
                 <img
                   src={member.image}
-                  alt={member.name}
+                  alt={`${member.name}, ${member.role} at The Black History Foundation`}
                   className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
                 />
               </div>

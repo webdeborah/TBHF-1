@@ -45,7 +45,8 @@ const Footer = () => {
                 src="/Logos/TBHF_Main_Text.png"
                 width={256}
                 height={256}
-                alt="The Black History Foundation Logo"
+                alt="The Black History Foundation Logo - Preserving Black history and heritage"
+                loading="lazy"
               />
             </Link>
             <p className="font-helvetica mb-6 text-gray-300 max-w-md">

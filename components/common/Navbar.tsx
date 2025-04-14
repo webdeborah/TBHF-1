@@ -49,7 +49,9 @@ const Navbar = () => {
             }
             width={200}
             height={200}
-            alt="The Black History Foundation Logo"
+            loading="eager" 
+            priority={true}
+            alt="The Black History Foundation Logo - Protecting and preserving Black history and heritage"
             className="transition-opacity duration-300"
           />
         </Link>

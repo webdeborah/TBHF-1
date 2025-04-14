@@ -21,7 +21,7 @@ const MissionSection = () => {
               >
                 <img
                   src="/safeguard african history hands.webp"
-                  alt="Black history preservation"
+                  alt="Hands carefully preserving Black historical documents and artifacts for future generations"
                   className="w-full h-auto rounded-lg"
                 />
               </motion.div>
