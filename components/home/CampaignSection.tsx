@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import SectionHeading from "../common/SectionHeading";
 import Button from "../common/Button";
+import { CURRENT_DONATION_AMOUNT, DONATION_GOAL } from "../variables/donations";
 
 const CampaignSection = () => {
   const [ref, inView] = useInView({
@@ -14,13 +15,13 @@ const CampaignSection = () => {
   // Progress bar animation
   const progressVariants = {
     hidden: { width: "0%" },
-    visible: { width: "65%", transition: { duration: 1.5, ease: "easeOut" } }
+    visible: { width: "4%", transition: { duration: 1.5, ease: "easeOut" } },
   };
 
   // Counter animation (for demonstration purposes)
   const counterVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.5 } }
+    visible: { opacity: 1, transition: { duration: 0.5 } },
   };
 
   // Points for why this matters
@@ -28,7 +29,7 @@ const CampaignSection = () => {
     "Schools lack comprehensive Black history curricula",
     "Historical artifacts and documents are disappearing",
     "Misinformation about Black history is widespread",
-    "Many historical sites are at risk of being lost forever"
+    "Many historical sites are at risk of being lost forever",
   ];
 
   // What we're doing points
@@ -36,27 +37,33 @@ const CampaignSection = () => {
     "Developing educational programs and curriculum materials",
     "Restoring and preserving historical sites and landmarks",
     "Using AI and blockchain to preserve historical records",
-    "Building community archives and oral history collections"
+    "Building community archives and oral history collections",
   ];
 
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-white relative overflow-hidden">
+    <section
+      ref={ref}
+      className="py-16 md:py-24 bg-white relative overflow-hidden"
+    >
       {/* Background pattern */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
-        <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1200 800">
-          <path 
-            d="M0,0 L1200,0 L1200,800 L0,800 Z" 
-            fill="none" 
-            stroke="var(--primary)" 
+        <svg
+          width="100%"
+          height="100%"
+          preserveAspectRatio="none"
+          viewBox="0 0 1200 800"
+        >
+          <path
+            d="M0,0 L1200,0 L1200,800 L0,800 Z"
+            fill="none"
+            stroke="var(--primary)"
             strokeWidth="2"
           />
-          <circle cx="200" cy="200" r="80" fill="var(--primary)" />
-          <circle cx="600" cy="600" r="120" fill="var(--secondary)" />
-          <circle cx="1000" cy="300" r="100" fill="var(--accent-green)" />
-          <path 
-            d="M0,400 C300,300 600,500 1200,400" 
-            fill="none" 
-            stroke="var(--primary)" 
+
+          <path
+            d="M0,400 C300,300 600,500 1200,400"
+            fill="none"
+            stroke="var(--primary)"
             strokeWidth="3"
           />
         </svg>
@@ -71,15 +78,19 @@ const CampaignSection = () => {
         />
 
         {/* Fundraising progress */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-3xl mx-auto mt-12 bg-[var(--bg-secondary)] p-6 rounded-lg shadow-md"
         >
           <div className="flex justify-between mb-2">
-            <span className="font-neue-kabel font-bold">Fundraising Progress</span>
-            <span className="font-helvetica font-bold">$.5M / $5M</span>
+            <span className="font-neue-kabel font-bold">
+              Fundraising Progress
+            </span>
+            <span className="font-helvetica font-bold">
+              {CURRENT_DONATION_AMOUNT} / {DONATION_GOAL}
+            </span>
           </div>
           <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
             <motion.div
@@ -96,8 +107,12 @@ const CampaignSection = () => {
               animate={inView ? "visible" : "hidden"}
               className="text-center"
             >
-              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--primary)]">$3.25M</div>
-              <div className="font-helvetica text-sm text-[var(--text-secondary)]">Raised So Far</div>
+              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--primary)]">
+                $300
+              </div>
+              <div className="font-helvetica text-sm text-[var(--text-secondary)]">
+                Raised So Far
+              </div>
             </motion.div>
             <motion.div
               variants={counterVariants}
@@ -106,8 +121,12 @@ const CampaignSection = () => {
               transition={{ delay: 0.2 }}
               className="text-center"
             >
-              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--accent-black)]">1,240+</div>
-              <div className="font-helvetica text-sm text-[var(--text-secondary)]">Donors</div>
+              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--accent-black)]">
+                20+
+              </div>
+              <div className="font-helvetica text-sm text-[var(--text-secondary)]">
+                Donors
+              </div>
             </motion.div>
             <motion.div
               variants={counterVariants}
@@ -116,8 +135,12 @@ const CampaignSection = () => {
               transition={{ delay: 0.4 }}
               className="text-center"
             >
-              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--accent-black)]">65%</div>
-              <div className="font-helvetica text-sm text-[var(--text-secondary)]">Complete</div>
+              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--accent-black)]">
+                0.1%
+              </div>
+              <div className="font-helvetica text-sm text-[var(--text-secondary)]">
+                Complete
+              </div>
             </motion.div>
             <motion.div
               variants={counterVariants}
@@ -126,8 +149,12 @@ const CampaignSection = () => {
               transition={{ delay: 0.6 }}
               className="text-center"
             >
-              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--accent-black)]">16</div>
-              <div className="font-helvetica text-sm text-[var(--text-secondary)]">Months Left</div>
+              <div className="font-neue-kabel font-black text-2xl md:text-3xl text-[var(--accent-black)]">
+                4
+              </div>
+              <div className="font-helvetica text-sm text-[var(--text-secondary)]">
+                Months Left
+              </div>
             </motion.div>
           </div>
         </motion.div>
@@ -140,17 +167,23 @@ const CampaignSection = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="bg-[var(--primary)] text-white p-6 md:p-8 rounded-lg"
           >
-            <h3 className="font-neue-kabel font-bold text-2xl mb-4">Why This Matters</h3>
+            <h3 className="font-neue-kabel font-bold text-2xl mb-4">
+              Why This Matters
+            </h3>
             <ul className="space-y-3">
               {whyItMatters.map((point, index) => (
-                <motion.li 
+                <motion.li
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.4, delay: 0.5 + (index * 0.1) }}
+                  animate={
+                    inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                  }
+                  transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
                   className="flex items-start"
                 >
-                  <span className="inline-block mr-3 mt-1 text-[var(--secondary)]">•</span>
+                  <span className="inline-block mr-3 mt-1 text-[var(--secondary)]">
+                    •
+                  </span>
                   <span className="font-helvetica">{point}</span>
                 </motion.li>
               ))}
@@ -163,18 +196,31 @@ const CampaignSection = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="bg-[var(--bg-secondary)] p-6 md:p-8 rounded-lg border-l-4 border-[var(--secondary)]"
           >
-            <h3 className="font-neue-kabel font-bold text-2xl mb-4">What We're Doing</h3>
+            <h3 className="font-neue-kabel font-bold text-2xl mb-4">
+              What We're Doing
+            </h3>
             <ul className="space-y-3">
               {whatWereDoing.map((point, index) => (
-                <motion.li 
+                <motion.li
                   key={index}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{ duration: 0.4, delay: 0.5 + (index * 0.1) }}
+                  animate={
+                    inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }
+                  }
+                  transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
                   className="flex items-start"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 mt-1 text-[var(--primary)]" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 mr-3 mt-1 text-[var(--primary)]"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                   <span className="font-helvetica">{point}</span>
                 </motion.li>
@@ -200,11 +246,14 @@ const CampaignSection = () => {
                   Black History Caribbean Cruise
                 </h3>
                 <p className="font-helvetica text-white opacity-90 mb-6">
-                  Join us on a 7-day cultural journey through the Caribbean, exploring the rich history of the African diaspora while enjoying luxury accommodations and exclusive educational experiences.
+                  Join us on a 7-day cultural journey through the Caribbean,
+                  exploring the rich history of the African diaspora while
+                  enjoying luxury accommodations and exclusive educational
+                  experiences.
                 </p>
-                <Button 
-                  href="/cruise" 
-                  variant="secondary" 
+                <Button
+                  href="/cruise"
+                  variant="secondary"
                   size="lg"
                   className="shadow-lg"
                 >
@@ -214,12 +263,13 @@ const CampaignSection = () => {
             </div>
             <div className="bg-ocean h-64 md:h-auto relative overflow-hidden">
               <div className="absolute inset-0 flex items-center justify-center">
-                <img 
-                  src="/images/cruise-promo.jpg" 
-                  alt="Caribbean Cruise" 
+                <img
+                  src="/images/cruise-promo.jpg"
+                  alt="Caribbean Cruise"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1548574505-5e239809ee19?q=80&w=1064";
+                    e.currentTarget.src =
+                      "https://images.unsplash.com/photo-1548574505-5e239809ee19?q=80&w=1064";
                   }}
                 />
                 <div className="absolute top-0 right-0 bg-secondary text-navy font-bold py-2 px-4 rotate-12 translate-x-4 -translate-y-2 text-sm">
@@ -229,7 +279,7 @@ const CampaignSection = () => {
             </div>
           </div>
         </motion.div>
-        
+
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -237,9 +287,12 @@ const CampaignSection = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-16 text-center"
         >
-          <h3 className="font-neue-kabel font-bold text-2xl mb-4">How You Can Help</h3>
+          <h3 className="font-neue-kabel font-bold text-2xl mb-4">
+            How You Can Help
+          </h3>
           <p className="font-helvetica text-[var(--text-secondary)] max-w-2xl mx-auto mb-8">
-            Join us in our mission to preserve Black history for future generations. Your support can make a lasting difference.
+            Join us in our mission to preserve Black history for future
+            generations. Your support can make a lasting difference.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button href="/donate" variant="primary" size="lg">

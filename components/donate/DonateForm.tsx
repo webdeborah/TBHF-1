@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 
 const DonateForm = () => {
   const { ref, inView } = useInView({
@@ -46,7 +47,7 @@ const DonateForm = () => {
 
   const handlePersonalInfoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setPersonalInfo(prev => ({
+    setPersonalInfo((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -54,13 +55,13 @@ const DonateForm = () => {
 
   const handleNextStep = () => {
     setStep(2);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // No scrolling - we'll just update the UI in place
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       setSuccess(true);
@@ -68,10 +69,15 @@ const DonateForm = () => {
     }, 1500);
   };
 
-  const finalAmount = donationAmount === "custom" ? customAmount : donationAmount;
+  const finalAmount =
+    donationAmount === "custom" ? customAmount : donationAmount;
 
   return (
-    <section id="donate-form" ref={ref} className="py-16 md:py-24 bg-[var(--bg-secondary)]">
+    <section
+      id="donate-form"
+      ref={ref}
+      className="py-16 md:py-24 bg-[var(--bg-secondary)]"
+    >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -84,7 +90,9 @@ const DonateForm = () => {
               Make Your Donation
             </h2>
             <p className="font-helvetica text-[var(--text-secondary)] max-w-2xl mx-auto">
-              Your tax-deductible gift helps us preserve Black history for future generations. All donations go directly to supporting our programs and initiatives.
+              Your tax-deductible gift helps us preserve Black history for
+              future generations. All donations go directly to supporting our
+              programs and initiatives.
             </p>
           </motion.div>
 
@@ -98,11 +106,16 @@ const DonateForm = () => {
                 {/* Progress indicator */}
                 <div className="mb-8">
                   <div className="flex items-center justify-between">
-                    <div className={`font-helvetica font-bold ${step === 1 ? "text-[var(--primary)]" : "text-gray-400"}`}>
+                    <div
+                      className={`font-helvetica font-bold ${step === 1 ? "text-[var(--primary)]" : "text-gray-400"}`}
+                    >
                       1. Donation Details
                     </div>
                     <div className="h-0.5 w-8 bg-gray-300"></div>
-                    <div className={`font-helvetica font-bold ${step === 2 ? "text-[var(--primary)]" : "text-gray-400"}`}>
+                    <div
+                      className={`font-helvetica font-bold ${step === 2 ? "text-[var(--primary)]" : "text-gray-400"}`}
+                      id="payment-section"
+                    >
                       2. Payment Information
                     </div>
                   </div>
@@ -139,7 +152,7 @@ const DonateForm = () => {
                         </button>
                       </div>
                     </div>
-                    
+
                     <div className="mb-8">
                       <label className="block font-helvetica font-bold mb-3">
                         Select Donation Amount
@@ -178,7 +191,7 @@ const DonateForm = () => {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="mb-8">
                       <div className="flex items-center mb-4">
                         <input
@@ -188,7 +201,10 @@ const DonateForm = () => {
                           onChange={() => setIsAnonymous(!isAnonymous)}
                           className="h-5 w-5 text-[var(--primary)] border-gray-300 rounded focus:ring-[var(--primary)]"
                         />
-                        <label htmlFor="anonymous" className="ml-2 font-helvetica">
+                        <label
+                          htmlFor="anonymous"
+                          className="ml-2 font-helvetica"
+                        >
                           Make this donation anonymous
                         </label>
                       </div>
@@ -216,12 +232,11 @@ const DonateForm = () => {
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="text-right">
                       <button
                         type="button"
                         onClick={handleNextStep}
-                        disabled={!finalAmount}
                         className="px-6 py-3 bg-[var(--primary)] text-white rounded-md font-helvetica font-bold hover:bg-[var(--primary-dark)] transition-colors disabled:opacity-70 disabled:hover:bg-[var(--primary)] disabled:cursor-not-allowed"
                       >
                         Continue to Payment
@@ -234,7 +249,9 @@ const DonateForm = () => {
                       <div className="flex justify-between items-center">
                         <div>
                           <div className="font-helvetica text-sm text-[var(--text-light)]">
-                            {donationType === "one-time" ? "One-Time Donation" : "Monthly Donation"}
+                            {donationType === "one-time"
+                              ? "One-Time Donation"
+                              : "Monthly Donation"}
                           </div>
                           <div className="font-neue-kabel font-bold text-2xl">
                             ${finalAmount}
@@ -249,7 +266,7 @@ const DonateForm = () => {
                         </button>
                       </div>
                     </div>
-                    
+
                     <div className="mb-8">
                       <label className="block font-helvetica font-bold mb-3">
                         Personal Information
@@ -300,7 +317,7 @@ const DonateForm = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="mb-8">
                       <label className="block font-helvetica font-bold mb-3">
                         Payment Method
@@ -351,7 +368,7 @@ const DonateForm = () => {
                           Crypto
                         </button>
                       </div>
-                      
+
                       {/* Credit card form - simplified version for illustration */}
                       {paymentMethod === "card" && (
                         <div className="space-y-4">
@@ -380,19 +397,22 @@ const DonateForm = () => {
                           </div>
                         </div>
                       )}
-                      
+
                       {/* Other payment methods would include their specific forms */}
                       {paymentMethod !== "card" && (
                         <div className="p-4 bg-gray-100 rounded-md text-center text-[var(--text-secondary)]">
-                          You'll be redirected to complete your donation using {
-                            paymentMethod === "paypal" ? "PayPal" : 
-                            paymentMethod === "apple" ? "Apple Pay" : 
-                            "Cryptocurrency"
-                          }.
+                          You&apos;ll be redirected to complete your donation
+                          using{" "}
+                          {paymentMethod === "paypal"
+                            ? "PayPal"
+                            : paymentMethod === "apple"
+                              ? "Apple Pay"
+                              : "Cryptocurrency"}
+                          .
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="mb-8">
                       <div className="flex items-center">
                         <input
@@ -401,12 +421,18 @@ const DonateForm = () => {
                           required
                           className="h-5 w-5 text-[var(--primary)] border-gray-300 rounded focus:ring-[var(--primary)]"
                         />
-                        <label htmlFor="consent" className="ml-2 font-helvetica text-sm">
-                          I agree that my information will be processed according to the Privacy Policy. I understand that my donation is tax-deductible to the extent allowed by law. *
+                        <label
+                          htmlFor="consent"
+                          className="ml-2 font-helvetica text-sm"
+                        >
+                          I agree that my information will be processed
+                          according to the Privacy Policy. I understand that my
+                          donation is tax-deductible to the extent allowed by
+                          law. *
                         </label>
                       </div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center">
                       <button
                         type="button"
@@ -422,9 +448,25 @@ const DonateForm = () => {
                       >
                         {loading ? (
                           <>
-                            <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <svg
+                              className="animate-spin h-5 w-5 mr-2"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
                             </svg>
                             Processing...
                           </>
@@ -443,25 +485,40 @@ const DonateForm = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
               className="bg-[var(--bg-primary)] p-8 rounded-lg shadow-md text-center"
+              id="payment"
             >
               <div className="inline-flex items-center justify-center h-16 w-16 bg-green-100 rounded-full mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <h3 className="font-neue-kabel font-bold text-2xl mb-4">
                 Thank You for Your Donation!
               </h3>
               <p className="font-helvetica text-[var(--text-secondary)] mb-6 max-w-lg mx-auto">
-                Your generous contribution of ${finalAmount} {donationType === "monthly" ? "per month " : ""}will help us continue our mission to preserve Black history for future generations. A receipt has been sent to your email.
+                Your generous contribution of ${finalAmount}{" "}
+                {donationType === "monthly" ? "per month " : ""}will help us
+                continue our mission to preserve Black history for future
+                generations. A receipt has been sent to your email.
               </p>
               <div className="mt-8">
-                <a
+                <Link
                   href="/"
                   className="inline-block font-helvetica font-bold text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors mr-6"
                 >
                   Return to Home Page
-                </a>
+                </Link>
                 <a
                   href="#"
                   className="inline-block font-helvetica font-bold underline text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
@@ -471,17 +528,31 @@ const DonateForm = () => {
               </div>
             </motion.div>
           )}
-          
+
           <div className="mt-8 text-center">
             <p className="font-helvetica text-sm text-[var(--text-light)]">
-              The Black History Foundation is a registered 501(c)(3) nonprofit organization. All donations are tax-deductible to the extent allowed by law.
+              The Black History Foundation is a registered 501(c)(3) nonprofit
+              organization. All donations are tax-deductible to the extent
+              allowed by law.
             </p>
             <div className="mt-4 flex justify-center space-x-4">
               <img src="/images/visa.png" alt="Visa" className="h-6" />
-              <img src="/images/mastercard.png" alt="Mastercard" className="h-6" />
-              <img src="/images/amex.png" alt="American Express" className="h-6" />
+              <img
+                src="/images/mastercard.png"
+                alt="Mastercard"
+                className="h-6"
+              />
+              <img
+                src="/images/amex.png"
+                alt="American Express"
+                className="h-6"
+              />
               <img src="/images/paypal.png" alt="PayPal" className="h-6" />
-              <img src="/images/apple-pay.png" alt="Apple Pay" className="h-6" />
+              <img
+                src="/images/apple-pay.png"
+                alt="Apple Pay"
+                className="h-6"
+              />
               <img src="/images/bitcoin.png" alt="Bitcoin" className="h-6" />
             </div>
           </div>

@@ -15,25 +15,29 @@ const GetInvolvedSection = () => {
   const volunteering = [
     {
       title: "Research Assistant",
-      description: "Help with historical research, document digitization, and archival work.",
+      description:
+        "Help with historical research, document digitization, and archival work.",
       icon: "📚",
       color: "bg-blue-100",
     },
     {
       title: "Community Outreach",
-      description: "Organize and participate in community events, workshops, and educational programs.",
+      description:
+        "Organize and participate in community events, workshops, and educational programs.",
       icon: "🤝",
       color: "bg-green-100",
     },
     {
       title: "Digital Content Creator",
-      description: "Create social media content, videos, or blog posts to promote Black history.",
+      description:
+        "Create social media content, videos, or blog posts to promote Black history.",
       icon: "📱",
       color: "bg-purple-100",
     },
     {
       title: "Fundraising Volunteer",
-      description: "Help with fundraising campaigns, grant writing, and donor relations.",
+      description:
+        "Help with fundraising campaigns, grant writing, and donor relations.",
       icon: "💰",
       color: "bg-amber-100",
     },
@@ -42,19 +46,22 @@ const GetInvolvedSection = () => {
   // Testimonials slider
   const testimonials = [
     {
-      quote: "Volunteering with TBHF has been one of the most rewarding experiences of my life. Knowing that I'm helping preserve our history for future generations gives me a sense of purpose.",
+      quote:
+        "Volunteering with TBHF has been one of the most rewarding experiences of my life. Knowing that I'm helping preserve our history for future generations gives me a sense of purpose.",
       name: "Michelle Johnson",
       role: "Research Volunteer",
       image: "/images/testimonial-1.jpg",
     },
     {
-      quote: "As a teacher, I've witnessed firsthand how TBHF's educational materials have transformed my students' understanding of Black history. The foundation is doing vital work.",
+      quote:
+        "As a teacher, I've witnessed firsthand how TBHF's educational materials have transformed my students' understanding of Black history. The foundation is doing vital work.",
       name: "James Wilson",
       role: "Educator & Supporter",
       image: "/images/testimonial-2.jpg",
     },
     {
-      quote: "I started volunteering to honor my grandparents, but I've gained so much more—knowledge, community, and a deeper connection to my heritage.",
+      quote:
+        "I started volunteering to honor my grandparents, but I've gained so much more—knowledge, community, and a deeper connection to my heritage.",
       name: "Alisha Thomas",
       role: "Community Outreach Volunteer",
       image: "/images/testimonial-3.jpg",
@@ -71,7 +78,7 @@ const GetInvolvedSection = () => {
         setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
       }, 6000);
     }
-    
+
     return () => {
       if (testimonialInterval.current) {
         clearInterval(testimonialInterval.current);
@@ -84,7 +91,8 @@ const GetInvolvedSection = () => {
       ref={ref}
       className="py-16 md:py-24 relative bg-cover bg-center text-white"
       style={{
-        backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/volunteer-bg.jpg')",
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/images/volunteer-bg.jpg')",
       }}
     >
       <div className="container mx-auto px-4 sm:px-6">
@@ -103,14 +111,20 @@ const GetInvolvedSection = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.4, delay: 0.3 + (index * 0.1) }}
+              transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
               className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6 hover:bg-opacity-20 transition-all border border-white border-opacity-20"
             >
-              <div className={`w-12 h-12 rounded-full mb-4 flex items-center justify-center text-2xl`}>
+              <div
+                className={`w-12 h-12 rounded-full mb-4 flex items-center justify-center text-2xl`}
+              >
                 {item.icon}
               </div>
-              <h3 className="font-neue-kabel font-bold text-xl mb-2">{item.title}</h3>
-              <p className="font-helvetica text-gray-300 mb-4">{item.description}</p>
+              <h3 className="font-neue-kabel font-bold text-xl mb-2">
+                {item.title}
+              </h3>
+              <p className="font-helvetica text-gray-300 mb-4">
+                {item.description}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -122,8 +136,10 @@ const GetInvolvedSection = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-20"
         >
-          <h3 className="font-neue-kabel font-bold text-2xl mb-8 text-center">Volunteer Testimonials</h3>
-          
+          <h3 className="font-neue-kabel font-bold text-2xl mb-8 text-center">
+            Volunteer Testimonials
+          </h3>
+
           <div className="relative max-w-3xl mx-auto">
             <AnimatePresence mode="wait">
               <motion.div

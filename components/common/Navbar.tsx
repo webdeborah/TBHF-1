@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 25) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -34,17 +35,23 @@ const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-[var(--bg-primary)] bg-opacity-95 shadow-md py-2"
-          : "bg-transparent py-4"
+          : "backdrop-blur-md py-4"
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo */}
+        {/* Logo with conditional image source */}
         <Link href="/" className="flex items-center">
-          <span className={`font-neue-kabel font-black text-2xl md:text-3xl ${
-            scrolled ? "text-[var(--primary)]" : "text-white"
-          }`}>
-            TBHF
-          </span>
+          <Image
+            src={
+              scrolled
+                ? "/Logos/TBHF_Logo_Black.png"
+                : "/Logos/TBHF_Main_Text.png"
+            }
+            width={200}
+            height={200}
+            alt="The Black History Foundation Logo"
+            className="transition-opacity duration-300"
+          />
         </Link>
 
         {/* Desktop Navigation - Centered */}
@@ -63,14 +70,14 @@ const Navbar = () => {
             ))}
           </div>
         </nav>
-        
+
         {/* Donate Button */}
         <div className="hidden md:block">
           <Link
             href="/donate"
             className={`font-helvetica font-bold px-5 py-2 rounded-full transition-colors ${
-              scrolled 
-                ? "bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)]" 
+              scrolled
+                ? "bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)] hover:text-white"
                 : "bg-[var(--secondary)] text-[var(--text-primary)] hover:bg-[var(--secondary-dark)]"
             }`}
           >
