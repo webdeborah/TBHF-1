@@ -11,8 +11,7 @@ import {
 const DonateHero = () => {
   return (
     <section className="relative pt-32 pb-20 bg-[var(--primary)] text-white overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-15">
+      <div className="absolute inset-0 opacity-10">
         <svg width="100%" height="100%">
           <defs>
             <pattern
@@ -99,8 +98,22 @@ const DonateHero = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mt-12"
           >
-            <Button href="#donate-form" variant="secondary" size="lg">
+            <Button
+              href="#donate-form"
+              variant="secondary"
+              className="mx-4"
+              size="lg"
+            >
               Donate Now
+            </Button>
+
+            <Button
+              href="https://platform.engiven.com/give/2519/widget/2717"
+              variant="secondary"
+              className="mx-4"
+              size="lg"
+            >
+              Donate Stocks
             </Button>
           </motion.div>
         </div>

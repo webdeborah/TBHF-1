@@ -43,7 +43,6 @@ const GetInvolvedSection = () => {
     },
   ];
 
-  // Testimonials slider
   const testimonials = [
     {
       quote:
@@ -151,7 +150,9 @@ const GetInvolvedSection = () => {
                 className="bg-white bg-opacity-5 backdrop-blur-sm rounded-lg p-8 border border-white border-opacity-10"
               >
                 <div className="text-center">
-                  <div className="mb-6 text-[var(--secondary)] text-4xl">"</div>
+                  <div className="mb-6 text-[var(--secondary)] text-4xl">
+                    &quot;
+                  </div>
                   <p className="font-helvetica text-lg italic mb-6">
                     {testimonials[activeTestimonial].quote}
                   </p>

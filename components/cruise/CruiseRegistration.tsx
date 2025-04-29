@@ -29,7 +29,6 @@ const CruiseRegistration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real application, you would send this data to your backend
     console.log("Form submitted:", formData);
     setFormSubmitted(true);
   };
@@ -114,7 +113,7 @@ const CruiseRegistration = () => {
 
                 <div className="mt-8 pt-6 border-t border-white border-opacity-20">
                   <h4 className="font-neue-kabel font-medium text-lg text-white mb-4">
-                    What's Included:
+                    What&apos;s Included:
                   </h4>
                   <ul className="space-y-2">
                     {[
@@ -176,8 +175,8 @@ const CruiseRegistration = () => {
                     </h3>
                     <p className="font-helvetica text-lg mb-6 max-w-md">
                       Thank you for your interest in our Black History Caribbean
-                      Cruise. We'll contact you within 48 hours to confirm your
-                      reservation.
+                      Cruise. We&apos;ll contact you within 48 hours to confirm
+                      your reservation.
                     </p>
                     <button
                       onClick={() => setFormSubmitted(false)}
@@ -368,7 +367,7 @@ const CruiseRegistration = () => {
                       type="submit"
                       className="w-full font-helvetica font-bold px-6 py-3 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors"
                     >
-                      Submit Registration
+                      Registration Coming Soon
                     </button>
                   </form>
                 )}
@@ -401,7 +400,7 @@ const CruiseRegistration = () => {
             </svg>
             cruise@tbhf.org
           </a>
-          <span className="mx-4">•</span>
+          <span className="mx-4" />
           <a
             href="tel:+1-800-555-TBHF"
             className="inline-flex items-center font-helvetica font-medium text-primary hover:text-primary-dark transition-colors"

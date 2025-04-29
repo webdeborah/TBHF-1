@@ -9,32 +9,38 @@ const CruiseHighlights = () => {
     {
       icon: "🏛️",
       title: "Historical Sites",
-      description: "Visit significant historical sites across the Caribbean relating to African diaspora and the transatlantic experience"
+      description:
+        "Visit significant historical sites across the Caribbean relating to African diaspora and the transatlantic experience",
     },
     {
       icon: "🎓",
       title: "Educational Workshops",
-      description: "Engage in daily workshops led by renowned historians, authors, and cultural experts"
+      description:
+        "Engage in daily workshops led by renowned historians, authors, and cultural experts",
     },
     {
       icon: "🎭",
       title: "Cultural Performances",
-      description: "Experience authentic cultural performances showcasing music, dance, and storytelling traditions"
+      description:
+        "Experience authentic cultural performances showcasing music, dance, and storytelling traditions",
     },
     {
       icon: "🍽️",
       title: "Culinary Experiences",
-      description: "Savor traditional African and Caribbean cuisine with cooking demonstrations from celebrated chefs"
+      description:
+        "Savor traditional African and Caribbean cuisine with cooking demonstrations from celebrated chefs",
     },
     {
       icon: "🏊",
       title: "Leisure Activities",
-      description: "Enjoy the luxurious amenities of our cruise ship including pools, spa services, and entertainment"
+      description:
+        "Enjoy the luxurious amenities of our cruise ship including pools, spa services, and entertainment",
     },
     {
       icon: "🤝",
       title: "Networking",
-      description: "Connect with like-minded individuals passionate about preserving and celebrating Black history"
+      description:
+        "Connect with like-minded individuals passionate about preserving and celebrating Black history",
     },
   ];
 
@@ -46,7 +52,7 @@ const CruiseHighlights = () => {
             subtitle="Voyage Highlights"
             title="An Unforgettable Cultural Experience"
             description="Our Caribbean cruise isn't just a vacation—it's a journey through history, culture, and heritage that combines education with relaxation."
-            alignment="center"
+            centered
           />
         </AnimatedSection>
 
@@ -83,13 +89,33 @@ const CruiseHighlights = () => {
                   All-Inclusive Experience
                 </h3>
                 <p className="font-helvetica text-white opacity-90 mb-6">
-                  Your cruise package includes all accommodations, meals, activities, workshops, and excursions. We've taken care of everything so you can focus on immersing yourself in the experience.
+                  Your cruise package includes all accommodations, meals,
+                  activities, workshops, and excursions. We&apos;ve taken care
+                  of everything so you can focus on immersing yourself in the
+                  experience.
                 </p>
                 <ul className="space-y-2">
-                  {['Luxury accommodations', 'All meals and beverages', 'Cultural excursions', 'Educational workshops', 'Evening entertainment'].map((item, i) => (
-                    <li key={i} className="flex items-center text-white font-helvetica">
-                      <svg className="h-5 w-5 mr-2 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  {[
+                    "Luxury accommodations",
+                    "All meals and beverages",
+                    "Cultural excursions",
+                    "Educational workshops",
+                    "Evening entertainment",
+                  ].map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center text-white font-helvetica"
+                    >
+                      <svg
+                        className="h-5 w-5 mr-2 text-secondary"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clipRule="evenodd"
+                        />
                       </svg>
                       {item}
                     </li>
@@ -99,16 +125,22 @@ const CruiseHighlights = () => {
             </div>
             <div className="bg-secondary h-full flex items-center justify-center p-8">
               <div className="text-center">
-                <p className="font-helvetica font-medium text-navy">Starting from</p>
-                <p className="font-neue-kabel font-black text-5xl md:text-6xl text-navy mt-2 mb-4">$2,499</p>
+                <p className="font-helvetica font-medium text-navy">
+                  Starting from
+                </p>
+                <p className="font-neue-kabel font-black text-5xl md:text-6xl text-navy mt-2 mb-4">
+                  $2,499
+                </p>
                 <p className="font-helvetica text-navy">per person</p>
-                <p className="font-helvetica text-sm text-navy opacity-75 mt-2">Based on double occupancy</p>
+                <p className="font-helvetica text-sm text-navy opacity-75 mt-2">
+                  Based on double occupancy
+                </p>
                 <div className="mt-6">
-                  <a 
-                    href="#registration" 
+                  <a
+                    href="#registration"
                     className="inline-block bg-navy hover:bg-opacity-90 text-white font-helvetica font-bold py-3 px-8 rounded-full transition-colors duration-300"
                   >
-                    Book Now
+                    Prepare for later
                   </a>
                 </div>
               </div>
