@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import Button from "../common/Button";
 
 const DonateForm = () => {
   const { ref, inView } = useInView({
@@ -94,6 +95,15 @@ const DonateForm = () => {
               future generations. All donations go directly to supporting our
               programs and initiatives.
             </p>
+
+            <Button
+              href="https://platform.engiven.com/give/2519/widget/2717"
+              variant="secondary"
+              className="mx-4"
+              size="lg"
+            >
+              Donate Crypto
+            </Button>
           </motion.div>
 
           {!success ? (

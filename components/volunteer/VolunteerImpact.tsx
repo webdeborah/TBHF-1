@@ -151,9 +151,9 @@ const VolunteerImpact = () => {
               Volunteering with The Black History Foundation has been
               exceptionally rewarding, being able to discuss concepts, ideas,
               and various plans in accelerating their development processes has
-              helped me greatly understand how charitable organizations work,
+              helped me greatly understand how charitable organizations operate,
               their thought processes, and build true intuitive reasons as to
-              why people should care about the history we all make.
+              why people should care about the history humanity is creating.
             </p>
             <div className="flex items-center">
               <div className="mr-4">
@@ -168,7 +168,7 @@ const VolunteerImpact = () => {
                   Watson Lewis-Rodriguez
                 </div>
                 <div className="font-helvetica text-sm text-[var(--text-light)]">
-                  Website Developer • 2 years
+                  Website Developer • 2 months
                 </div>
               </div>
             </div>

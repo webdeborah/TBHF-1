@@ -26,7 +26,7 @@ const CampaignSection = () => {
 
   // Points for why this matters
   const whyItMatters = [
-    "Schools lack comprehensive Black history curricula",
+    "Schools lack comprehensive Black history curriculum",
     "Historical artifacts and documents are disappearing",
     "Misinformation about Black history is widespread",
     "Many historical sites are at risk of being lost forever",
@@ -45,30 +45,6 @@ const CampaignSection = () => {
       ref={ref}
       className="py-16 md:py-24 bg-white relative overflow-hidden"
     >
-      {/* Background pattern */}
-      <div className="absolute top-0 right-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
-        <svg
-          width="100%"
-          height="100%"
-          preserveAspectRatio="none"
-          viewBox="0 0 1200 800"
-        >
-          <path
-            d="M0,0 L1200,0 L1200,800 L0,800 Z"
-            fill="none"
-            stroke="var(--primary)"
-            strokeWidth="2"
-          />
-
-          <path
-            d="M0,400 C300,300 600,500 1200,400"
-            fill="none"
-            stroke="var(--primary)"
-            strokeWidth="3"
-          />
-        </svg>
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6">
         <SectionHeading
           subtitle="Save Black History"

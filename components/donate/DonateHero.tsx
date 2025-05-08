@@ -106,15 +106,6 @@ const DonateHero = () => {
             >
               Donate Now
             </Button>
-
-            <Button
-              href="https://platform.engiven.com/give/2519/widget/2717"
-              variant="secondary"
-              className="mx-4"
-              size="lg"
-            >
-              Donate Stocks
-            </Button>
           </motion.div>
         </div>
       </div>

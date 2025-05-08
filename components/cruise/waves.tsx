@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 
 const NaturalWaves = () => {
-  // Wave configurations with varying heights, animations, and colors for more natural look
   const waveConfigs = [
     {
       height: "h-16",

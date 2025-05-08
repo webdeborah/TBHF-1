@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation"; // Import to detect current route
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname(); // Get current route
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +42,6 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        {/* Logo with conditional image source */}
         <Link href="/" className="flex items-center">
           <Image
             src={
@@ -56,24 +58,39 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Desktop Navigation - Centered */}
         <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
           <div className="flex items-center justify-center space-x-10">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.path}
-                className={`font-helvetica hover:text-[var(--primary)] transition-colors font-medium ${
-                  scrolled ? "text-[var(--text-primary)]" : "text-white"
-                }`}
+                className="group relative font-helvetica font-medium px-2 py-1"
               >
-                {link.name}
+                {/* Normal text that fades out on hover */}
+                <span
+                  className={`block transition-all duration-300 ease-in-out ${
+                    scrolled ? "text-[var(--text-primary)]" : "text-white"
+                  } ${pathname === link.path ? "text-[var(--primary)]" : ""}
+                  group-hover:opacity-0`}
+                >
+                  {link.name}
+                </span>
+
+                {/* Blurred text that appears on hover with animation */}
+                <span
+                  className={`absolute top-0 left-0 right-0 px-2 py-1 block transition-all duration-300 ease-in-out
+                  ${scrolled ? "text-[var(--primary)]" : "text-[var(--secondary)]"}
+                  opacity-0 filter blur-none
+                  group-hover:opacity-100 group-hover:filter group-hover:blur-[2px]
+                  group-hover:scale-110`}
+                >
+                  {link.name}
+                </span>
               </Link>
             ))}
           </div>
         </nav>
 
-        {/* Donate Button */}
         <div className="hidden md:block">
           <Link
             href="/donate"
@@ -87,33 +104,25 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile menu button */}
         <button
-          className="md:hidden flex items-center"
+          className="md:hidden flex items-center p-2"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
-          <div className="w-6 flex flex-col justify-between h-5">
-            <span
-              className={`h-0.5 w-full bg-[var(--text-primary)] transition-all transform ${
-                isOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`h-0.5 w-full bg-[var(--text-primary)] transition-all ${
-                isOpen ? "opacity-0" : "opacity-100"
-              }`}
-            ></span>
-            <span
-              className={`h-0.5 w-full bg-[var(--text-primary)] transition-all transform ${
-                isOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
-          </div>
+          {isOpen ? (
+            <X
+              size={24}
+              className={scrolled ? "text-[var(--text-primary)]" : "text-white"}
+            />
+          ) : (
+            <Menu
+              size={24}
+              className={scrolled ? "text-[var(--text-primary)]" : "text-white"}
+            />
+          )}
         </button>
       </div>
 
-      {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

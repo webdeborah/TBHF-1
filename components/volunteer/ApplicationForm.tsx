@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 
 const ApplicationForm = () => {
   const [ref, inView] = useInView({
@@ -25,10 +26,15 @@ const ApplicationForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [consent, setConsent] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
-    setFormState(prev => ({
+    setFormState((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -36,25 +42,74 @@ const ApplicationForm = () => {
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
-    
+
     if (checked) {
-      setFormState(prev => ({
+      setFormState((prev) => ({
         ...prev,
         interests: [...prev.interests, value],
       }));
     } else {
-      setFormState(prev => ({
+      setFormState((prev) => ({
         ...prev,
-        interests: prev.interests.filter(interest => interest !== value),
+        interests: prev.interests.filter((interest) => interest !== value),
       }));
     }
   };
 
+  const handleConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConsent(e.target.checked);
+  };
+
+  const generateMailtoLink = () => {
+    const subject = encodeURIComponent(
+      "Volunteer Application - " + formState.name,
+    );
+
+    // Format interests as a comma-separated list
+    const interestsFormatted = formState.interests.join(", ");
+
+    // Build the email body with all form fields
+    let body = encodeURIComponent(
+      `Name: ${formState.name}\n` +
+        `Email: ${formState.email}\n` +
+        `Phone: ${formState.phone}\n` +
+        `Location: ${formState.city}, ${formState.state}\n\n` +
+        `Areas of Interest: ${interestsFormatted}\n\n` +
+        `Relevant Experience:\n${formState.experience}\n\n` +
+        `Availability: ${formState.availability}\n\n` +
+        `Motivation:\n${formState.motivation}\n\n` +
+        `Referral Source: ${formState.referral}\n\n` +
+        `Consent to Communications: Yes`,
+    );
+
+    return `mailto:team@tbhfdn.org?subject=${subject}&body=${body}`;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate form
+    if (
+      !formState.name ||
+      !formState.email ||
+      !formState.city ||
+      !formState.state ||
+      formState.interests.length === 0 ||
+      !formState.availability ||
+      !formState.motivation ||
+      !consent
+    ) {
+      alert("Please fill in all required fields");
+      return;
+    }
+
     setLoading(true);
-    
-    // Simulate form submission
+
+    // Generate and open mailto link
+    const mailtoLink = generateMailtoLink();
+    window.location.href = mailtoLink;
+
+    // Set a timeout to show the success message after the email client opens
     setTimeout(() => {
       setSubmitted(true);
       setLoading(false);
@@ -84,7 +139,9 @@ const ApplicationForm = () => {
               Volunteer Application
             </h2>
             <p className="font-helvetica text-[var(--text-secondary)] max-w-2xl mx-auto">
-              Thank you for your interest in volunteering with The Black History Foundation. Please complete the form below to apply. Our volunteer coordinator will contact you within 3-5 business days.
+              Thank you for your interest in volunteering with The Black History
+              Foundation. Please complete the form below to apply. Our volunteer
+              coordinator will contact you within 3-5 business days.
             </p>
           </motion.div>
 
@@ -94,10 +151,16 @@ const ApplicationForm = () => {
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <form onSubmit={handleSubmit} className="bg-[var(--bg-secondary)] p-8 rounded-lg">
+              <form
+                onSubmit={handleSubmit}
+                className="bg-[var(--bg-secondary)] p-8 rounded-lg"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label htmlFor="name" className="block font-helvetica font-bold mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block font-helvetica font-bold mb-2"
+                    >
                       Full Name *
                     </label>
                     <input
@@ -111,7 +174,10 @@ const ApplicationForm = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block font-helvetica font-bold mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block font-helvetica font-bold mb-2"
+                    >
                       Email Address *
                     </label>
                     <input
@@ -125,7 +191,10 @@ const ApplicationForm = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block font-helvetica font-bold mb-2">
+                    <label
+                      htmlFor="phone"
+                      className="block font-helvetica font-bold mb-2"
+                    >
                       Phone Number
                     </label>
                     <input
@@ -140,7 +209,10 @@ const ApplicationForm = () => {
                   <div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="city" className="block font-helvetica font-bold mb-2">
+                        <label
+                          htmlFor="city"
+                          className="block font-helvetica font-bold mb-2"
+                        >
                           City *
                         </label>
                         <input
@@ -154,7 +226,10 @@ const ApplicationForm = () => {
                         />
                       </div>
                       <div>
-                        <label htmlFor="state" className="block font-helvetica font-bold mb-2">
+                        <label
+                          htmlFor="state"
+                          className="block font-helvetica font-bold mb-2"
+                        >
                           State *
                         </label>
                         <input
@@ -186,7 +261,10 @@ const ApplicationForm = () => {
                           onChange={handleCheckboxChange}
                           className="h-5 w-5 text-[var(--primary)] border-gray-300 rounded focus:ring-[var(--primary)]"
                         />
-                        <label htmlFor={area.id} className="ml-2 font-helvetica">
+                        <label
+                          htmlFor={area.id}
+                          className="ml-2 font-helvetica"
+                        >
                           {area.label}
                         </label>
                       </div>
@@ -195,7 +273,10 @@ const ApplicationForm = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="experience" className="block font-helvetica font-bold mb-2">
+                  <label
+                    htmlFor="experience"
+                    className="block font-helvetica font-bold mb-2"
+                  >
                     Relevant Experience
                   </label>
                   <textarea
@@ -210,7 +291,10 @@ const ApplicationForm = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="availability" className="block font-helvetica font-bold mb-2">
+                  <label
+                    htmlFor="availability"
+                    className="block font-helvetica font-bold mb-2"
+                  >
                     Availability *
                   </label>
                   <select
@@ -231,7 +315,10 @@ const ApplicationForm = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="motivation" className="block font-helvetica font-bold mb-2">
+                  <label
+                    htmlFor="motivation"
+                    className="block font-helvetica font-bold mb-2"
+                  >
                     Why do you want to volunteer with TBHF? *
                   </label>
                   <textarea
@@ -247,7 +334,10 @@ const ApplicationForm = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="referral" className="block font-helvetica font-bold mb-2">
+                  <label
+                    htmlFor="referral"
+                    className="block font-helvetica font-bold mb-2"
+                  >
                     How did you hear about us?
                   </label>
                   <input
@@ -266,10 +356,17 @@ const ApplicationForm = () => {
                     id="consent"
                     name="consent"
                     required
+                    checked={consent}
+                    onChange={handleConsentChange}
                     className="h-5 w-5 text-[var(--primary)] border-gray-300 rounded focus:ring-[var(--primary)]"
                   />
-                  <label htmlFor="consent" className="ml-2 font-helvetica text-sm">
-                    I agree to receive communications from The Black History Foundation and understand that my information will be processed in accordance with the Privacy Policy. *
+                  <label
+                    htmlFor="consent"
+                    className="ml-2 font-helvetica text-sm"
+                  >
+                    I agree to receive communications from The Black History
+                    Foundation and understand that my information will be
+                    processed in accordance with the Privacy Policy. *
                   </label>
                 </div>
 
@@ -281,9 +378,25 @@ const ApplicationForm = () => {
                   >
                     {loading ? (
                       <>
-                        <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg
+                          className="animate-spin h-5 w-5 mr-2"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
                         </svg>
                         Submitting...
                       </>
@@ -291,6 +404,13 @@ const ApplicationForm = () => {
                       "Submit Application"
                     )}
                   </button>
+                </div>
+
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-500">
+                    Your email client will open to send the application to
+                    team@tbhfdn.org
+                  </p>
                 </div>
               </form>
             </motion.div>
@@ -302,22 +422,35 @@ const ApplicationForm = () => {
               className="bg-[var(--bg-secondary)] p-8 rounded-lg text-center"
             >
               <div className="inline-flex items-center justify-center h-16 w-16 bg-green-100 rounded-full mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </div>
               <h3 className="font-neue-kabel font-bold text-2xl mb-4">
                 Application Submitted!
               </h3>
               <p className="font-helvetica text-[var(--text-secondary)] mb-6 max-w-lg mx-auto">
-                Thank you for your interest in volunteering with The Black History Foundation. Our volunteer coordinator will review your application and contact you within 3-5 business days.
+                Thank you for your interest in volunteering with The Black
+                History Foundation. Our volunteer coordinator will review your
+                application and contact you within 3-5 business days.
               </p>
-              <a
+              <Link
                 href="/"
                 className="inline-block font-helvetica font-bold text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors"
               >
                 Return to Home Page →
-              </a>
+              </Link>
             </motion.div>
           )}
         </div>
