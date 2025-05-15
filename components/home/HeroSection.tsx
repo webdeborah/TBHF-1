@@ -70,52 +70,24 @@ const HeroSection = () => {
     };
   }, [isMobile]);
 
-  // Touch-specific handling for mobile devices
+  // Modified touch handling for mobile devices to improve scrolling
   useEffect(() => {
     if (!isMobile) return;
 
-    let touchStartY = 0;
-    let touchEndY = 0;
+    // We're removing the custom touch handling that was interfering with scrolling
+    // No need to manipulate the content position on touch as it was preventing
+    // natural scrolling behavior on mobile devices
+    
+    // The parallax effect is now handled solely by the scroll handler
+    // with reduced intensity for mobile devices
 
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!heroRef.current) return;
-      touchEndY = e.touches[0].clientY;
-
-      // Calculate touch difference
-      const touchDiff = touchStartY - touchEndY;
-
-      // Apply subtle effect during touch movement
-      const contentElement = heroRef.current.querySelector(
-        ".content",
-      ) as HTMLElement;
-
-      if (contentElement && Math.abs(touchDiff) > 5) {
-        contentElement.style.transform = `translateY(${-touchDiff * 0.1}px)`;
-      }
-    };
-
-    // Only add touch events on mobile
-    if (typeof window !== "undefined") {
-      window.addEventListener("touchstart", handleTouchStart, {
-        passive: true,
-      });
-      window.addEventListener("touchmove", handleTouchMove, { passive: true });
-
-      return () => {
-        window.removeEventListener("touchstart", handleTouchStart);
-        window.removeEventListener("touchmove", handleTouchMove);
-      };
-    }
+    // This allows users to scroll normally without interference
   }, [isMobile]);
 
   return (
     <div
       ref={heroRef}
-      className="relative w-full h-screen overflow-hidden bg-[var(--accent-black)]"
+      className="relative w-full h-screen overflow-visible bg-[var(--accent-black)]"
     >
       {/* Waves background - adjusted for better mobile performance */}
       <div className="absolute inset-0">
@@ -128,13 +100,13 @@ const HeroSection = () => {
           backgroundColor="transparent"
           backgroundImage="https://cloud-1de12d.b-cdn.net/media/iW=5000&iH=any/e58b0a2345f56497aaa24fad2967a498/une-photo-numerique-en-plusieur-cadre-regroupant-des-lideurs-noire-homme-et-femme-comme-nelson-mandelamatin-luter-king-et-bien-dautre-aspect-169-style-REALISTIC-.png"
           backgroundOpacity={0.5}
-          waveSpeedX={isMobile ? 0.01 : 0.015}
-          waveSpeedY={isMobile ? 0.005 : 0.008}
-          waveAmpX={isMobile ? 20 : 30}
-          waveAmpY={isMobile ? 10 : 15}
-          friction={0.95}
-          tension={0.008}
-          maxCursorMove={isMobile ? 50 : 100}
+          waveSpeedX={isMobile ? 0.005 : 0.015}
+          waveSpeedY={isMobile ? 0.003 : 0.008}
+          waveAmpX={isMobile ? 15 : 30}
+          waveAmpY={isMobile ? 8 : 15}
+          friction={isMobile ? 0.97 : 0.95}
+          tension={isMobile ? 0.005 : 0.008}
+          maxCursorMove={isMobile ? 30 : 100}
           xGap={isMobile ? 20 : 16}
           yGap={isMobile ? 48 : 42}
         />

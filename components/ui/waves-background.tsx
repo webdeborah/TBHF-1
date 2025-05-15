@@ -171,9 +171,9 @@ export function Waves({
     
     function handleScroll() {
       // Calculate opacity based on scroll position
-      // Fade out completely by 400px of scroll
+      // Fade out completely by 600px of scroll (increased for mobile)
       const scrollY = window.scrollY;
-      const fadeDistance = 400;
+      const fadeDistance = 600;
       const newOpacity = Math.max(0, 1 - (scrollY / fadeDistance));
       opacityRef.current = newOpacity;
       
@@ -185,8 +185,18 @@ export function Waves({
         const bgImage = container.querySelector('.background-image');
         if (bgImage) {
           // Make background fade slightly faster than the waves
-          const bgOpacity = backgroundOpacity * Math.max(0, 1 - (scrollY / (fadeDistance * 0.8)));
+          const bgOpacity = backgroundOpacity * Math.max(0, 1 - (scrollY / (fadeDistance * 0.9)));
           bgImage.style.opacity = String(bgOpacity);
+        }
+        
+        // If we've scrolled past the threshold, reduce the animation intensity
+        // This helps with performance on mobile
+        if (scrollY > fadeDistance / 2) {
+          if (canvasRef.current) {
+            canvasRef.current.style.opacity = String(Math.max(0, 1 - ((scrollY - fadeDistance/2) / (fadeDistance/2))));
+          }
+        } else if (canvasRef.current) {
+          canvasRef.current.style.opacity = "1";
         }
       }
     }
@@ -338,7 +348,8 @@ export function Waves({
       updateMouse(e.pageX, e.pageY);
     }
     function onTouchMove(e) {
-      e.preventDefault();
+      // Remove preventDefault to allow scrolling on mobile
+      // Only update mouse position
       const touch = e.touches[0];
       updateMouse(touch.clientX, touch.clientY);
     }
@@ -366,7 +377,7 @@ export function Waves({
     // Add event listeners
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
@@ -428,7 +439,11 @@ export function Waves({
           zIndex: 2,
         }}
       />
-      <canvas ref={canvasRef} className="block w-full h-full relative z-1" />
+      <canvas 
+        ref={canvasRef} 
+        className="block w-full h-full relative z-1" 
+        style={{ transition: "opacity 0.3s ease-out" }}
+      />
     </div>
   );
 }
