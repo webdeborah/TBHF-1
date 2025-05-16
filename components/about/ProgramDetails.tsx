@@ -132,6 +132,15 @@ const ProgramDetails = () => {
     },
   };
 
+  const handleTabClick = (key) => {
+    setActiveTab(key);
+    // Smooth scroll to content section
+    const element = document.getElementById(`${key}-content`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section ref={ref} className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
@@ -146,9 +155,13 @@ const ProgramDetails = () => {
         <div className="mt-12 border-b border-gray-200">
           <nav className="flex flex-wrap -mb-px">
             {Object.keys(programs).map((key) => (
-              <button
+              <a
                 key={key}
-                onClick={() => setActiveTab(key)}
+                href={`#${key}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleTabClick(key);
+                }}
                 className={`font-helvetica font-bold py-4 px-6 border-b-2 transition-colors ${
                   activeTab === key
                     ? "border-[var(--primary)] text-[var(--primary)]"
@@ -156,8 +169,8 @@ const ProgramDetails = () => {
                 }`}
                 id={`${key}-tab`}
               >
-                {programs[key as keyof typeof programs].title}
-              </button>
+                {programs[key].title}
+              </a>
             ))}
           </nav>
         </div>
@@ -181,14 +194,14 @@ const ProgramDetails = () => {
                   transition={{ duration: 0.6 }}
                 >
                   <h3 className="font-neue-kabel font-bold text-2xl md:text-3xl mb-4">
-                    {programs[key as keyof typeof programs].title}
+                    {programs[key].title}
                   </h3>
                   <p className="font-helvetica text-[var(--text-secondary)] mb-8">
-                    {programs[key as keyof typeof programs].description}
+                    {programs[key].description}
                   </p>
 
                   <div className="space-y-6">
-                    {programs[key as keyof typeof programs].items.map(
+                    {programs[key].items.map(
                       (item, index) => (
                         <motion.div
                           key={index}
@@ -245,8 +258,8 @@ const ProgramDetails = () => {
                   className="rounded-lg overflow-hidden shadow-xl"
                 >
                   <img
-                    src={programs[key as keyof typeof programs].image}
-                    alt={programs[key as keyof typeof programs].title}
+                    src={programs[key].image}
+                    alt={programs[key].title}
                     className="w-full h-auto"
                   />
                 </motion.div>
