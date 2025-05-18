@@ -106,7 +106,7 @@ const TeamSection = () => {
               Join Our Team
             </h3>
             <p className="font-helvetica text-[var(--text-secondary)] mb-6">
-              We're always looking for passionate individuals to join our
+              We&apos;re always looking for passionate individuals to join our
               mission. Whether as a board member, volunteer, or staff member,
               there are many ways to contribute your skills.
             </p>

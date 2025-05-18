@@ -11,27 +11,32 @@ const ProgramDetails = () => {
     threshold: 0.1,
   });
 
-  const [activeTab, setActiveTab] = useState('education');
+  const [activeTab, setActiveTab] = useState("education");
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // Handle direct navigation and browser back/forward
       const handleHashChange = () => {
         const hash = window.location.hash;
-        if (hash === '#programs-nav') {
+        if (hash === "#programs-nav") {
           const urlParams = new URLSearchParams(window.location.search);
-          const program = urlParams.get('program');
-          if (program && ['education', 'technology', 'preservation', 'community'].includes(program)) {
+          const program = urlParams.get("program");
+          if (
+            program &&
+            ["education", "technology", "preservation", "community"].includes(
+              program,
+            )
+          ) {
             setActiveTab(program);
-            const nav = document.getElementById('programs-nav');
-            if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const nav = document.getElementById("programs-nav");
+            if (nav) nav.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         }
       };
 
       handleHashChange(); // Handle initial load
-      window.addEventListener('hashchange', handleHashChange);
-      return () => window.removeEventListener('hashchange', handleHashChange);
+      window.addEventListener("hashchange", handleHashChange);
+      return () => window.removeEventListener("hashchange", handleHashChange);
     }
   }, []);
 
@@ -153,8 +158,21 @@ const ProgramDetails = () => {
     },
   };
 
+  const handleTabClick = (key) => {
+    setActiveTab(key);
+    // Smooth scroll to content section
+    const element = document.getElementById(`${key}-content`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-white" id="programs-section">
+    <section
+      ref={ref}
+      className="py-16 md:py-24 bg-white"
+      id="programs-section"
+    >
       <div className="container mx-auto px-4 sm:px-6">
         <SectionHeading
           subtitle="Our Programs"
@@ -167,17 +185,12 @@ const ProgramDetails = () => {
         <div className="mt-12 border-b border-gray-200" id="programs-nav">
           <nav className="flex flex-wrap -mb-px scroll-mt-24">
             {Object.keys(programs).map((key) => (
-              <button
+              <a
                 key={key}
-                onClick={() => {
-                  setActiveTab(key);
-                  const nav = document.getElementById('programs-nav');
-                  if (nav) {
-                    nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Update URL without triggering a navigation
-                    const newUrl = `${window.location.pathname}#programs-nav?program=${key}`;
-                    window.history.pushState({}, '', newUrl);
-                  }
+                href={`#${key}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleTabClick(key);
                 }}
                 className={`font-helvetica font-bold py-4 px-6 border-b-2 transition-colors ${
                   activeTab === key
@@ -186,8 +199,8 @@ const ProgramDetails = () => {
                 }`}
                 id={`${key}-tab`}
               >
-                {programs[key as keyof typeof programs].title}
-              </button>
+                {programs[key].title}
+              </a>
             ))}
           </nav>
         </div>
@@ -211,56 +224,54 @@ const ProgramDetails = () => {
                   transition={{ duration: 0.6 }}
                 >
                   <h3 className="font-neue-kabel font-bold text-2xl md:text-3xl mb-4">
-                    {programs[key as keyof typeof programs].title}
+                    {programs[key].title}
                   </h3>
                   <p className="font-helvetica text-[var(--text-secondary)] mb-8">
-                    {programs[key as keyof typeof programs].description}
+                    {programs[key].description}
                   </p>
 
                   <div className="space-y-6">
-                    {programs[key as keyof typeof programs].items.map(
-                      (item, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={
-                            inView && activeTab === key
-                              ? { opacity: 1, y: 0 }
-                              : { opacity: 0, y: 20 }
-                          }
-                          transition={{
-                            duration: 0.4,
-                            delay: 0.3 + index * 0.1,
-                          }}
-                          className="flex"
-                        >
-                          <div className="flex-shrink-0 mr-4">
-                            <div className="h-10 w-10 rounded-full bg-[var(--primary)] bg-opacity-10 flex items-center justify-center text-[var(--primary)]">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            </div>
+                    {programs[key].items.map((item, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={
+                          inView && activeTab === key
+                            ? { opacity: 1, y: 0 }
+                            : { opacity: 0, y: 20 }
+                        }
+                        transition={{
+                          duration: 0.4,
+                          delay: 0.3 + index * 0.1,
+                        }}
+                        className="flex"
+                      >
+                        <div className="flex-shrink-0 mr-4">
+                          <div className="h-10 w-10 rounded-full bg-[var(--primary)] bg-opacity-10 flex items-center justify-center text-[var(--primary)]">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
                           </div>
-                          <div>
-                            <h4 className="font-neue-kabel font-bold text-lg mb-1">
-                              {item.title}
-                            </h4>
-                            <p className="font-helvetica text-[var(--text-secondary)]">
-                              {item.description}
-                            </p>
-                          </div>
-                        </motion.div>
-                      ),
-                    )}
+                        </div>
+                        <div>
+                          <h4 className="font-neue-kabel font-bold text-lg mb-1">
+                            {item.title}
+                          </h4>
+                          <p className="font-helvetica text-[var(--text-secondary)]">
+                            {item.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </motion.div>
 
@@ -275,8 +286,8 @@ const ProgramDetails = () => {
                   className="rounded-lg overflow-hidden shadow-xl"
                 >
                   <img
-                    src={programs[key as keyof typeof programs].image}
-                    alt={programs[key as keyof typeof programs].title}
+                    src={programs[key].image}
+                    alt={programs[key].title}
                     className="w-full h-auto"
                   />
                 </motion.div>
