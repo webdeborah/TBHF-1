@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Link from "next/link";
 
 const ContactForm = () => {
   const [ref, inView] = useInView({
@@ -58,8 +59,8 @@ const ContactForm = () => {
             </h2>
             <p className="font-helvetica text-[var(--text-secondary)] mb-8">
               We&apos;re here to answer any questions you have about The Black
-              History Foundation. Fill out the form and we'll respond as soon as
-              possible, typically within 1-2 business days.
+              History Foundation. Fill out the form and we&apos;ll respond as
+              soon as possible, typically within 1-2 business days.
             </p>
 
             {!submitted ? (
@@ -248,12 +249,12 @@ const ContactForm = () => {
                   We&apos;ve received your message and will get back to you
                   within 1-2 business days.
                 </p>
-                <a
+                <Link
                   href="/"
                   className="inline-block font-helvetica font-bold text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors"
                 >
                   Return to Home Page →
-                </a>
+                </Link>
               </div>
             )}
           </motion.div>
@@ -276,7 +277,7 @@ const ContactForm = () => {
                   </h4>
                   <div className="flex flex-wrap gap-4">
                     <a
-                      href="https://www.facebook.com/theblackhistoryfoundation"
+                      href="https://facebook.com/groups/721668592155966"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors"
@@ -296,7 +297,7 @@ const ContactForm = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://twitter.com"
+                      href="https://x.com/theresavkennedy"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-400 text-white hover:bg-blue-500 transition-colors"
@@ -312,7 +313,7 @@ const ContactForm = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://www.instagram.com/theblackhistoryfdn/"
+                      href="https://instagram.com/blackhistorydao"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors"
@@ -332,7 +333,7 @@ const ContactForm = () => {
                       </svg>
                     </a>
                     <a
-                      href="https://www.linkedin.com/company/theblackhistoryfoundation/"
+                      href="https://www.linkedin.com/company/black-history-dao/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-colors"

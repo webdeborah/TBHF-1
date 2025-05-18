@@ -116,8 +116,7 @@ const ContactHero = () => {
                 Our Office
               </h3>
               <p className="font-helvetica text-[var(--text-secondary)]">
-                1752 E. Ave. J, Suite 214, <br />
-                Lancaster, CA 93535
+                30 N. Gould St, STE R, Sheridan, Wyoming 82801
               </p>
             </div>
           </motion.div>

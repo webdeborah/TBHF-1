@@ -82,7 +82,7 @@ const ApplicationForm = () => {
         `Consent to Communications: Yes`,
     );
 
-    return `mailto:team@tbhfdn.org?subject=${subject}&body=${body}`;
+    return `mailto:volunteer@TheBlackHistoryFoundation.org?subject=${subject}&body=${body}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -409,7 +409,7 @@ const ApplicationForm = () => {
                 <div className="mt-4 text-center">
                   <p className="text-sm text-gray-500">
                     Your email client will open to send the application to
-                    team@tbhfdn.org
+                    volunteer@TheBlackHistoryFoundation.org
                   </p>
                 </div>
               </form>

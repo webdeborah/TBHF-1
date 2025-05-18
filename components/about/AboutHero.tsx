@@ -58,34 +58,6 @@ const AboutHero = () => {
               more unified future.
             </p>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-8 mt-10"
-          >
-            <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20 text-center w-full sm:w-60">
-              <h3 className="font-neue-kabel font-bold text-[var(--secondary)] mb-2">
-                Founded
-              </h3>
-              <p className="font-helvetica text-2xl">2023</p>
-            </div>
-
-            <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20 text-center w-full sm:w-60">
-              <h3 className="font-neue-kabel font-bold text-[var(--secondary)] mb-2">
-                Communities
-              </h3>
-              <p className="font-helvetica text-2xl">10+</p>
-            </div>
-
-            <div className="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-lg border border-white border-opacity-20 text-center w-full sm:w-60">
-              <h3 className="font-neue-kabel font-bold text-[var(--secondary)] mb-2">
-                Volunteers
-              </h3>
-              <p className="font-helvetica text-2xl">100+</p>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

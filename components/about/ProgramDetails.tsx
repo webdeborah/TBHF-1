@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import SectionHeading from "../common/SectionHeading";
@@ -11,7 +11,29 @@ const ProgramDetails = () => {
     threshold: 0.1,
   });
 
-  const [activeTab, setActiveTab] = useState("education");
+  const [activeTab, setActiveTab] = useState('education');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Handle direct navigation and browser back/forward
+      const handleHashChange = () => {
+        const hash = window.location.hash;
+        if (hash === '#programs-nav') {
+          const urlParams = new URLSearchParams(window.location.search);
+          const program = urlParams.get('program');
+          if (program && ['education', 'technology', 'preservation', 'community'].includes(program)) {
+            setActiveTab(program);
+            const nav = document.getElementById('programs-nav');
+            if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      };
+
+      handleHashChange(); // Handle initial load
+      window.addEventListener('hashchange', handleHashChange);
+      return () => window.removeEventListener('hashchange', handleHashChange);
+    }
+  }, []);
 
   const programs = {
     education: {
@@ -40,9 +62,8 @@ const ProgramDetails = () => {
             "Public lectures, seminars, and events that make historical knowledge accessible to all.",
         },
       ],
-      image:
-        "/girlaccessingblackhistoryGPT.webp",
-        },  
+      image: "/girlaccessingblackhistoryGPT.webp",
+    },
     technology: {
       title: "Technology-Based Solutions",
       description:
@@ -133,7 +154,7 @@ const ProgramDetails = () => {
   };
 
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-white">
+    <section ref={ref} className="py-16 md:py-24 bg-white" id="programs-section">
       <div className="container mx-auto px-4 sm:px-6">
         <SectionHeading
           subtitle="Our Programs"
@@ -143,12 +164,21 @@ const ProgramDetails = () => {
         />
 
         {/* Program tabs */}
-        <div className="mt-12 border-b border-gray-200">
-          <nav className="flex flex-wrap -mb-px">
+        <div className="mt-12 border-b border-gray-200" id="programs-nav">
+          <nav className="flex flex-wrap -mb-px scroll-mt-24">
             {Object.keys(programs).map((key) => (
               <button
                 key={key}
-                onClick={() => setActiveTab(key)}
+                onClick={() => {
+                  setActiveTab(key);
+                  const nav = document.getElementById('programs-nav');
+                  if (nav) {
+                    nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Update URL without triggering a navigation
+                    const newUrl = `${window.location.pathname}#programs-nav?program=${key}`;
+                    window.history.pushState({}, '', newUrl);
+                  }
+                }}
                 className={`font-helvetica font-bold py-4 px-6 border-b-2 transition-colors ${
                   activeTab === key
                     ? "border-[var(--primary)] text-[var(--primary)]"

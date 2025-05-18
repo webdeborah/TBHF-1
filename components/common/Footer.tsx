@@ -18,14 +18,7 @@ const Footer = () => {
       { name: "Volunteer", path: "/volunteer" },
       { name: "Donate", path: "/donate" },
       { name: "Join Our Cruise", path: "/cruise" },
-      { name: "Fundraise", path: "/volunteer#fundraise" },
       { name: "Partner With Us", path: "/contact#partner" },
-    ],
-    programs: [
-      { name: "Educational Programs", path: "/about#education" },
-      { name: "Technology Solutions", path: "/about#technology" },
-      { name: "Cultural Preservation", path: "/about#preservation" },
-      { name: "Community Engagement", path: "/about#community" },
     ],
     contact: [
       { name: "Contact Us", path: "/contact" },
@@ -37,9 +30,9 @@ const Footer = () => {
   return (
     <footer className="bg-[var(--accent-black)] text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and description */}
-          <div className="lg:col-span-2">
+          <div className="md:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <Image
                 src="/Logos/TBHF_Main_Text.png"
@@ -56,80 +49,69 @@ const Footer = () => {
             </p>
             <motion.div whileHover={{ y: -3 }} className="inline-block">
               <Link href="/donate" className="btn btn-secondary">
-                Support Our Mission
+                Donate Now
               </Link>
             </motion.div>
           </div>
 
-          {/* Links sections */}
-          <div>
-            <h4 className="font-neue-kabel text-[var(--secondary)] mb-4">
-              About Us
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.aboutUs.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.path}
-                    className="font-helvetica text-gray-300 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Three equal columns for links */}
+          <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* About Us Column */}
+            <div>
+              <h4 className="font-neue-kabel text-[var(--secondary)] mb-4">
+                About Us
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.aboutUs.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.path}
+                      className="font-helvetica text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <h4 className="font-neue-kabel text-[var(--secondary)] mb-4">
-              Get Involved
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.getInvolved.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.path}
-                    className="font-helvetica text-gray-300 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Get Involved Column */}
+            <div>
+              <h4 className="font-neue-kabel text-[var(--secondary)] mb-4">
+                Get Involved
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.getInvolved.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.path}
+                      className="font-helvetica text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <h4 className="font-neue-kabel text-[var(--secondary)] mb-4">
-              Programs
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.programs.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.path}
-                    className="font-helvetica text-gray-300 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <h4 className="font-neue-kabel text-[var(--secondary)] mt-6 mb-4">
-              Contact
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.contact.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.path}
-                    className="font-helvetica text-gray-300 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Contact Column */}
+            <div>
+              <h4 className="font-neue-kabel text-[var(--secondary)] mb-4">
+                Contact
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.contact.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.path}
+                      className="font-helvetica text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 

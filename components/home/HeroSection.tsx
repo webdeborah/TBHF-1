@@ -77,7 +77,7 @@ const HeroSection = () => {
     // We're removing the custom touch handling that was interfering with scrolling
     // No need to manipulate the content position on touch as it was preventing
     // natural scrolling behavior on mobile devices
-    
+
     // The parallax effect is now handled solely by the scroll handler
     // with reduced intensity for mobile devices
 
@@ -154,7 +154,7 @@ const HeroSection = () => {
               href="/volunteer"
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-black"
+              className="border-white text-white hover:bg-white hover:text-gray-950"
             >
               Get Involved
             </Button>

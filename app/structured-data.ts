@@ -7,10 +7,10 @@ export function generateOrganizationSchema() {
     logo: 'https://theblackhistoryfoundation.org/Logos/TBHF_Logo_Full Color.png',
     description: 'The Black History Foundation is dedicated to empowering the African diaspora by preserving and promoting African history, culture, and heritage.',
     sameAs: [
-      'https://twitter.com/blackhistoryfdn',
-      'https://facebook.com/blackhistoryfoundation',
-      'https://instagram.com/blackhistoryfoundation',
-      'https://linkedin.com/company/black-history-foundation'
+      'https://x.com/theresavkennedy',
+      'https://facebook.com/groups/721668592155966',
+      'https://instagram.com/blackhistorydao',
+      'https://www.linkedin.com/company/black-history-dao/'
     ],
     address: {
       '@type': 'PostalAddress',
@@ -52,10 +52,10 @@ export function generateNonprofitSchema() {
     email: 'info@theblackhistoryfoundation.org',
     telephone: '+1-800-555-5555',
     sameAs: [
-      'https://twitter.com/blackhistoryfdn',
-      'https://facebook.com/blackhistoryfoundation',
-      'https://instagram.com/blackhistoryfoundation',
-      'https://linkedin.com/company/black-history-foundation'
+      'https://x.com/theresavkennedy',
+      'https://facebook.com/groups/721668592155966',
+      'https://instagram.com/blackhistorydao',
+      'https://www.linkedin.com/company/black-history-dao/'
     ]
   };
 }
