@@ -154,7 +154,7 @@ const HeroSection = () => {
               href="/volunteer"
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-gray-950"
+              className="border-white text-white hover:bg-white hover:text-black"
             >
               Get Involved
             </Button>
