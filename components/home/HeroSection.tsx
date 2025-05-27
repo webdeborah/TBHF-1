@@ -154,10 +154,16 @@ const HeroSection = () => {
               href="/volunteer"
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-black"
+              className="border-white text-white "
             >
               Get Involved
             </Button>
+            <div className="flex justify-evenly gap-4">
+              <Button href="https://charitycoin.tbhfdn.org/">
+                Join the 50/50 Raffle
+              </Button>
+              <Button href="https://ai.tbhfdn.org/">Our demo AI</Button>
+            </div>
           </motion.div>
         </motion.div>
       </div>
