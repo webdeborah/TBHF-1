@@ -42,31 +42,6 @@ const CruiseLayout = ({ children }: CruiseLayoutProps) => {
         </div>
 
         {children}
-
-        {/* Wave pattern at the bottom */}
-        <div className="relative">
-          <div className="absolute bottom-0 left-0 w-full h-16 overflow-hidden">
-            <motion.div
-              className="w-[200%] h-16"
-              animate={{
-                x: [-1000, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 20,
-                ease: "linear",
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 120"
-                className="h-full w-full fill-primary opacity-20"
-              >
-                <path d="M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,42.7C840,32,960,32,1080,37.3C1200,43,1320,53,1380,58.7L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"></path>
-              </svg>
-            </motion.div>
-          </div>
-        </div>
       </main>
 
       <Footer />

@@ -50,7 +50,7 @@ const CruiseHero = () => {
 
             <div className="mt-12 grid grid-cols-3 gap-4 md:gap-8">
               <div className="text-center">
-                <p className="font-neue-kabel font-bold text-2xl md:text-3xl text-secondary">
+                <p className="font-neue-kabel font-bold text-2xl md:text-3xl text-white">
                   7
                 </p>
                 <p className="font-helvetica text-white text-sm md:text-base">
@@ -58,7 +58,7 @@ const CruiseHero = () => {
                 </p>
               </div>
               <div className="text-center">
-                <p className="font-neue-kabel font-bold text-2xl md:text-3xl text-secondary">
+                <p className="font-neue-kabel font-bold text-2xl md:text-3xl text-white">
                   4
                 </p>
                 <p className="font-helvetica text-white text-sm md:text-base">
@@ -66,7 +66,7 @@ const CruiseHero = () => {
                 </p>
               </div>
               <div className="text-center">
-                <p className="font-neue-kabel font-bold text-2xl md:text-3xl text-secondary">
+                <p className="font-neue-kabel font-bold text-2xl md:text-3xl text-white">
                   ∞
                 </p>
                 <p className="font-helvetica text-white text-sm md:text-base">

@@ -120,7 +120,7 @@ const Footer = () => {
             &copy; {currentYear} The Black History Foundation. All rights
             reserved.
           </p>
-          <div className="flex space-x-6">
+          {/* <div className="flex space-x-6">
             <Link
               href="/privacy-policy"
               className="font-helvetica text-sm text-gray-400 hover:text-white transition-colors"
@@ -139,7 +139,7 @@ const Footer = () => {
             >
               Sitemap
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

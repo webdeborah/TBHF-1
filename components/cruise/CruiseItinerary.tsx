@@ -122,12 +122,12 @@ const CruiseItinerary = () => {
         </AnimatedSection>
 
         <div className="mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="flex overflow-x-auto scrollbar-hide bg-gray-50 border-b border-gray-200  justify-between">
+          <div className="flex overflow-x-auto scrollbar-hide bg-gray-50 border-b border-gray-200">
             {itineraryData.map((day, index) => (
               <button
                 key={index}
                 onClick={() => setActiveTab(index)}
-                className={`px-6 py-4 text-left flex-shrink-0 focus:outline-none transition-colors w-fit duration-300 ${
+                className={`px-6 py-4 text-left flex-shrink-0 focus:outline-none transition-colors flex-1 duration-300 ${
                   activeTab === index
                     ? "bg-primary text-white"
                     : "hover:bg-gray-100"

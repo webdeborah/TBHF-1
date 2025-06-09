@@ -47,7 +47,7 @@ const DonateHero = () => {
             </p>
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -71,9 +71,9 @@ const DonateHero = () => {
               </div>
               <p className="font-helvetica text-gray-200">Months Remaining</p>
             </div>
-          </motion.div>
+          </motion.div> */}
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -90,7 +90,7 @@ const DonateHero = () => {
             <p className="font-helvetica text-right mt-2 text-sm text-gray-200">
               1% of our goal
             </p>
-          </motion.div>
+          </motion.div> */}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

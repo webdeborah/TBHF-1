@@ -38,11 +38,34 @@ const ContactForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate form submission
+    // Create email subject and body with form data
+    const subject = encodeURIComponent(`Contact Form: ${formState.subject}`);
+    const body = encodeURIComponent(
+      `Name: ${formState.name}\n` +
+        `Email: ${formState.email}\n` +
+        `Phone: ${formState.phone}\n` +
+        `Subject: ${formState.subject}\n\n` +
+        `Message:\n${formState.message}`,
+    );
+
+    // Create mailto URL
+    const mailtoUrl = `mailto:info@TheBlackHistoryFoundation.org?subject=${subject}&body=${body}`;
+
+    // Open the mailto link
+    window.location.href = mailtoUrl;
+
+    // Reset loading state after a brief delay
     setTimeout(() => {
-      setSubmitted(true);
       setLoading(false);
-    }, 1500);
+      // Optionally reset the form
+      setFormState({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    }, 500);
   };
 
   return (
@@ -280,7 +303,7 @@ const ContactForm = () => {
                       href="https://facebook.com/groups/721668592155966"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-600 text-white hover:text-gray-200 transition-colors"
                       aria-label="Facebook"
                     >
                       <svg
@@ -300,7 +323,7 @@ const ContactForm = () => {
                       href="https://x.com/theresavkennedy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-400 text-white hover:bg-blue-500 transition-colors"
+                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-400 text-white hover:text-gray-200 transition-colors"
                       aria-label="Twitter"
                     >
                       <svg
@@ -316,7 +339,7 @@ const ContactForm = () => {
                       href="https://instagram.com/blackhistorydao"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-pink-600 text-white hover:bg-pink-700 transition-colors"
+                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-pink-600 text-white hover:text-gray-200 transition-colors"
                       aria-label="Instagram"
                     >
                       <svg
@@ -336,7 +359,7 @@ const ContactForm = () => {
                       href="https://www.linkedin.com/company/black-history-dao/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-colors"
+                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-blue-700 text-white hover:text-gray-200 transition-colors"
                       aria-label="LinkedIn"
                     >
                       <svg
@@ -352,30 +375,10 @@ const ContactForm = () => {
                         />
                       </svg>
                     </a>
-                    <a
-                      href="https://youtube.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
-                      aria-label="YouTube"
-                    >
-                      <svg
-                        className="h-5 w-5"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
                   </div>
                 </div>
 
-                <div id="newsletter" className="space-y-4">
+                {/* <div id="newsletter" className="space-y-4">
                   <h4 className="font-neue-kabel font-bold text-lg">
                     Subscribe to Our Newsletter
                   </h4>
@@ -397,7 +400,7 @@ const ContactForm = () => {
                       Subscribe
                     </button>
                   </form>
-                </div>
+                </div> */}
 
                 <div id="partner" className="space-y-4">
                   <h4 className="font-neue-kabel font-bold text-lg">
@@ -412,7 +415,7 @@ const ContactForm = () => {
                     href="#"
                     className="inline-block font-helvetica font-bold text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors"
                   >
-                    Learn More About Partnerships →
+                    Contact us for Partnership opportunities →
                   </a>
                 </div>
               </div>
