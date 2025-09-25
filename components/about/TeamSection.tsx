@@ -45,7 +45,7 @@ const TeamSection = () => {
     {
       name: "Jacqui Kennedy",
       role: "Director of Marketing",
-      bio: "Jacqui is a student at the Howard University School of Business. She has a background in marketing and specializes in Fashion Show Production.",
+      bio: "Jacqui has a background in museum curation and specializes in artifact preservation.",
       image: "/JacquiKennedy.jpg",
     },
     {
