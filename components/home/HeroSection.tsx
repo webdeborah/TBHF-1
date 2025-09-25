@@ -158,12 +158,17 @@ const HeroSection = () => {
             >
               Get Involved
             </Button>
+
+             {/* Extra action buttons - Raffle and AI demo 
             <div className="flex justify-evenly gap-4">
               <Button href="https://charitycoin.tbhfdn.org/">
                 Join the 50/50 Raffle
               </Button>
               <Button href="https://ai.tbhfdn.org/">Our demo AI</Button>
             </div>
+Scroll indicator - with improved visibility on mobile */}
+          
+          
           </motion.div>
         </motion.div>
       </div>
