@@ -1,11 +1,94 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import {
+  DEFAULT_COMING_SOON_CARDS,
+  type ComingSoonCard,
+  type ComingSoonCardIcon,
+} from "@/lib/coming-soon-cards";
+
+const ICON_SVGS: Record<ComingSoonCardIcon, React.ReactNode> = {
+  book: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+    />
+  ),
+  video: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+    />
+  ),
+  archive: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+    />
+  ),
+  blockchain: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M20 7l-8-4-8 4m0 0l-8-4v8l8 4 8-4V7zm0-6v4l8 4 8-4V1l-8-4-8 4z"
+    />
+  ),
+  default: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+    />
+  ),
+};
 
 const EducationalResources = () => {
   const [activeTab, setActiveTab] = useState<"videos" | "documents">("videos");
+  const [comingSoonCards, setComingSoonCards] = useState<
+    (ComingSoonCard & { id?: string })[]
+  >(DEFAULT_COMING_SOON_CARDS.map((c, i) => ({ ...c, id: `default-${i}` })));
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      if (!db) {
+        setComingSoonCards(DEFAULT_COMING_SOON_CARDS);
+        return;
+      }
+      try {
+        const q = query(
+          collection(db, "comingSoonCards"),
+          orderBy("order", "asc")
+        );
+        const snapshot = await getDocs(q);
+        const cards = snapshot.docs.map((docSnap) => {
+          const data = docSnap.data();
+          return {
+            id: docSnap.id,
+            ...(data as Omit<ComingSoonCard, "id">),
+            order: data.order ?? 0,
+          };
+        });
+        if (cards.length > 0) {
+          setComingSoonCards(cards);
+        }
+      } catch {
+        setComingSoonCards(DEFAULT_COMING_SOON_CARDS);
+      }
+    };
+    fetchCards();
+  }, []);
 
   return (
     <>
@@ -78,7 +161,7 @@ const EducationalResources = () => {
                   <video
                     controls
                     className="w-full h-full object-cover"
-                    poster="/ImageRef1.png"
+                    poster="/alicia_lyttle.png"
                   >
                     <source src="/videos/alicia_lyttle_ask_ai.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
@@ -203,53 +286,35 @@ const EducationalResources = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Future Resource 1 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 opacity-75 hover:opacity-100 transition-opacity">
-            <div className="p-6">
-              <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[var(--primary)] bg-opacity-10 mb-4">
-                <svg className="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+          {comingSoonCards.map((card, index) => (
+            <div
+              key={card.id ?? `card-${index}`}
+              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 opacity-75 hover:opacity-100 transition-opacity"
+            >
+              <div className="p-6">
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[var(--primary)] bg-opacity-10 mb-4">
+                  <svg
+                    className="w-6 h-6 text-[var(--primary)]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {ICON_SVGS[card.icon ?? "default"]}
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-[var(--text-primary)]">
+                  {card.title}
+                </h3>
+                <p className="text-[var(--text-secondary)] mb-4">
+                  {card.description}
+                </p>
+                <p className="text-sm text-gray-500 italic">
+                  {card.expectedTimeframe ?? "Coming Soon"}
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-2 text-[var(--text-primary)]">Interactive Learning Modules</h3>
-              <p className="text-[var(--text-secondary)] mb-4">
-                Interactive modules designed for educators to incorporate Black history into their curriculum with engaging activities and lesson plans.
-              </p>
-              <p className="text-sm text-gray-500 italic">Coming Summer 2026</p>
             </div>
-          </div>
-
-          {/* Future Resource 2 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 opacity-75 hover:opacity-100 transition-opacity">
-            <div className="p-6">
-              <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[var(--primary)] bg-opacity-10 mb-4">
-                <svg className="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-[var(--text-primary)]">Oral History Collection</h3>
-              <p className="text-[var(--text-secondary)] mb-4">
-                A growing collection of recorded interviews with community elders sharing personal stories and experiences that connect to important moments in Black history.
-              </p>
-              <p className="text-sm text-gray-500 italic">Coming Fall 2025</p>
-            </div>
-          </div>
-
-          {/* Future Resource 3 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 opacity-75 hover:opacity-100 transition-opacity">
-            <div className="p-6">
-              <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-[var(--primary)] bg-opacity-10 mb-4">
-                <svg className="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-[var(--text-primary)]">Digital Archive Toolkit</h3>
-              <p className="text-[var(--text-secondary)] mb-4">
-                Resources and tools for communities to create their own digital archives of local Black history, including best practices for preservation and documentation.
-              </p>
-              <p className="text-sm text-gray-500 italic">Coming Winter 2026</p>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="text-center mt-10">

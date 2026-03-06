@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { generateOrganizationSchema, generateNonprofitSchema } from './structured-data';
 import Script from 'next/script';
+
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+};
 
 export const metadata: Metadata = {
   title: "The Black History Foundation",
@@ -10,7 +14,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://theblackhistoryfoundation.org'),
   keywords: "Black history, cultural preservation, African heritage, education, history foundation",
   authors: [{ name: "The Black History Foundation" }],
-  colorScheme: "light dark",
   openGraph: {
     type: "website",
     locale: "en_US",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -12,17 +13,41 @@ const NewsletterSection = () => {
 
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [pendingConfirm, setPendingConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    // Simulate API call
-    setTimeout(() => {
-      setSubscribed(true);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setError(data.error || "Failed to subscribe. Please try again.");
+        return;
+      }
+
+      if (data.alreadySubscribed) {
+        setSubscribed(true);
+      } else {
+        setPendingConfirm(true);
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to subscribe. Please try again."
+      );
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -87,11 +112,16 @@ const NewsletterSection = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            {!subscribed ? (
+            {!subscribed && !pendingConfirm ? (
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col sm:flex-row gap-4"
               >
+                {error && (
+                  <div className="w-full basis-full text-amber-200 text-sm mb-2">
+                    {error}
+                  </div>
+                )}
                 <input
                   type="email"
                   value={email}
@@ -131,6 +161,18 @@ const NewsletterSection = () => {
                   )}
                 </button>
               </form>
+            ) : pendingConfirm ? (
+              <div className="bg-white bg-opacity-20 rounded-md p-6 border border-white border-opacity-30 backdrop-blur-sm">
+                <div className="text-4xl mb-4">✉</div>
+                <h3 className="font-neue-kabel font-bold text-xl mb-2">
+                  Check Your Inbox
+                </h3>
+                <p className="font-helvetica text-gray-100">
+                  We&apos;ve sent a confirmation link to your email. Click the
+                  link to complete your subscription and start receiving updates
+                  on our mission to preserve Black history.
+                </p>
+              </div>
             ) : (
               <div className="bg-white bg-opacity-20 rounded-md p-6 border border-white border-opacity-30 backdrop-blur-sm">
                 <div className="text-4xl mb-4">✓</div>
@@ -151,8 +193,14 @@ const NewsletterSection = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-8 text-sm text-gray-300 font-helvetica"
           >
-            By subscribing, you agree to our Privacy Policy and consent to
-            receive updates from The Black History Foundation.
+            By subscribing, you agree to our{" "}
+            <Link
+              href="/privacy-policy"
+              className="text-white hover:text-[var(--secondary)] underline transition-colors"
+            >
+              Privacy Policy
+            </Link>{" "}
+            and consent to receive updates from The Black History Foundation.
           </motion.div>
         </div>
       </div>

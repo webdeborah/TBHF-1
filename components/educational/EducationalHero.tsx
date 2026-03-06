@@ -32,7 +32,7 @@ const EducationalHero = () => {
           </motion.p>
           
           <motion.p 
-            className="text-lg md:text-xl mb-8 opacity-90"
+            className="text-lg md:text-xl opacity-90"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -42,20 +42,6 @@ const EducationalHero = () => {
             These resources support our mission to safeguard historical narratives and ensure they are 
             passed down to future generations.
           </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <a 
-              href="#resources" 
-              className="bg-white text-[var(--primary)] hover:bg-opacity-90 transition-all px-8 py-3 rounded-full font-bold"
-            >
-              View Resources
-            </a>
-          </motion.div>
         </div>
       </div>
     </section>

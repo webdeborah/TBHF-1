@@ -1,14 +1,63 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import SectionHeading from "../common/SectionHeading";
+import { db } from "@/lib/firebase";
 
 const VolunteerImpact = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const [testimonials, setTestimonials] = useState<
+    { quote: string; name: string; role: string; image: string }[]
+  >([]);
+  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const testimonialInterval = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      if (!db) {
+        setTestimonialsLoading(false);
+        return;
+      }
+      try {
+        const testimonialsRef = collection(db, "volunteerTestimonials");
+        const q = query(testimonialsRef, orderBy("order", "asc"));
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map((docSnap) => docSnap.data()) as {
+          quote: string;
+          name: string;
+          role: string;
+          image: string;
+        }[];
+        setTestimonials(data);
+      } catch {
+        setTestimonials([]);
+      } finally {
+        setTestimonialsLoading(false);
+      }
+    };
+    fetchTestimonials();
+  }, []);
+
+  useEffect(() => {
+    if (inView && testimonials.length > 0) {
+      testimonialInterval.current = setInterval(() => {
+        setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+      }, 6000);
+    }
+    return () => {
+      if (testimonialInterval.current) {
+        clearInterval(testimonialInterval.current);
+      }
+    };
+  }, [inView, testimonials.length]);
 
   const impacts = [
     {
@@ -78,12 +127,6 @@ const VolunteerImpact = () => {
     },
   ];
 
-  const stats = [
-    { number: "12", label: "Active Volunteers" },
-    { number: "4", label: "Different states of teammates" },
-    { number: "250", label: "Volunteer Hours in 2023" },
-  ];
-
   return (
     <section ref={ref} className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
@@ -115,65 +158,74 @@ const VolunteerImpact = () => {
           ))}
         </div>
 
-        {/* Volunteer stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-20 bg-[var(--accent-black)] text-white rounded-lg overflow-hidden"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="p-8 text-center border-b sm:border-b-0 sm:border-r border-gray-700 last:border-r-0"
-              >
-                <div className="font-neue-kabel font-black text-3xl md:text-4xl text-[var(--secondary)] mb-2">
-                  {stat.number}
-                </div>
-                <div className="font-helvetica text-gray-300">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Volunteer testimonials carousel - hidden when no testimonials */}
+        {!testimonialsLoading && testimonials.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-16 max-w-3xl mx-auto"
+          >
+            <h3 className="font-neue-kabel font-bold text-2xl mb-8 text-center">
+              Volunteer Testimonials
+            </h3>
+            <div className="relative">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTestimonial}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-[var(--bg-secondary)] p-8 rounded-lg relative"
+                >
+                  <div className="absolute -top-5 left-8 text-5xl text-[var(--primary)]">
+                    &quot;
+                  </div>
+                  <p className="font-helvetica text-lg italic text-[var(--text-secondary)] mt-6 mb-6">
+                    {testimonials[activeTestimonial].quote}
+                  </p>
+                  <div className="flex items-center">
+                    <div className="mr-4">
+                      <img
+                        src={
+                          testimonials[activeTestimonial].image ||
+                          `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[activeTestimonial].name)}&size=96&background=B22222&color=fff`
+                        }
+                        alt={`${testimonials[activeTestimonial].name}, ${testimonials[activeTestimonial].role} - Volunteer testimonial for The Black History Foundation`}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="font-neue-kabel font-bold">
+                        {testimonials[activeTestimonial].name}
+                      </div>
+                      <div className="font-helvetica text-sm text-[var(--text-light)]">
+                        {testimonials[activeTestimonial].role}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-16 max-w-3xl mx-auto"
-        >
-          <div className="bg-[var(--bg-secondary)] p-8 rounded-lg relative">
-            <div className="absolute -top-5 left-8 text-5xl text-[var(--primary)]">
-              &quot;
-            </div>
-            <p className="font-helvetica text-lg italic text-[var(--text-secondary)] mt-6 mb-6">
-              Volunteering with The Black History Foundation has been
-              exceptionally rewarding, being able to discuss concepts, ideas,
-              and various plans in accelerating their development processes has
-              helped me greatly understand how charitable organizations operate,
-              their thought processes, and build true intuitive reasons as to
-              why people should care about the history humanity is creating.
-            </p>
-            <div className="flex items-center">
-              <div className="mr-4">
-                <img
-                  src="https://watson.arthurlabs.net/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fimage-1.c961971a.jpeg&w=640&q=75"
-                  alt="Watson Lewis-Rodriguez"
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-              </div>
-              <div>
-                <div className="font-neue-kabel font-bold">
-                  Watson Lewis-Rodriguez
-                </div>
-                <div className="font-helvetica text-sm text-[var(--text-light)]">
-                  Website Developer • 2 months
-                </div>
+              {/* Dots navigation */}
+              <div className="flex justify-center mt-6 space-x-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveTestimonial(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      activeTestimonial === index
+                        ? "bg-[var(--primary)] w-8"
+                        : "bg-gray-300"
+                    }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -15,18 +15,27 @@ const ProgramDetails = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Handle direct navigation and browser back/forward
+      const programKeys = [
+        "education",
+        "technology",
+        "preservation",
+        "community",
+      ];
+
       const handleHashChange = () => {
-        const hash = window.location.hash;
-        if (hash === "#programs-nav") {
+        const hash = window.location.hash.replace("#", "");
+        if (programKeys.includes(hash)) {
+          setActiveTab(hash);
+          setTimeout(() => {
+            const element = document.getElementById(hash);
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }, 100);
+        } else if (hash === "programs-nav") {
           const urlParams = new URLSearchParams(window.location.search);
           const program = urlParams.get("program");
-          if (
-            program &&
-            ["education", "technology", "preservation", "community"].includes(
-              program,
-            )
-          ) {
+          if (program && programKeys.includes(program)) {
             setActiveTab(program);
             const nav = document.getElementById("programs-nav");
             if (nav) nav.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -34,7 +43,7 @@ const ProgramDetails = () => {
         }
       };
 
-      handleHashChange(); // Handle initial load
+      handleHashChange();
       window.addEventListener("hashchange", handleHashChange);
       return () => window.removeEventListener("hashchange", handleHashChange);
     }
@@ -160,8 +169,7 @@ const ProgramDetails = () => {
 
   const handleTabClick = (key) => {
     setActiveTab(key);
-    // Smooth scroll to content section
-    const element = document.getElementById(`${key}-content`);
+    const element = document.getElementById(key);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -182,8 +190,9 @@ const ProgramDetails = () => {
         />
 
         {/* Program tabs */}
-        <div className="mt-12 border-b border-gray-200" id="programs-nav">
-          <nav className="flex flex-wrap -mb-px scroll-mt-24">
+        <div className="mt-12 border-b border-gray-200 overflow-x-auto" id="programs-nav">
+          <nav className="table scroll-mt-24 min-w-max w-full -mb-px">
+            <div className="table-row">
             {Object.keys(programs).map((key) => (
               <a
                 key={key}
@@ -192,7 +201,7 @@ const ProgramDetails = () => {
                   e.preventDefault();
                   handleTabClick(key);
                 }}
-                className={`font-helvetica font-bold py-4 px-6 border-b-2 transition-colors ${
+                className={`table-cell font-helvetica font-bold py-4 px-6 border-b-2 transition-colors whitespace-nowrap leading-none align-middle h-14 ${
                   activeTab === key
                     ? "border-[var(--primary)] text-[var(--primary)]"
                     : "border-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-gray-300"
@@ -202,18 +211,19 @@ const ProgramDetails = () => {
                 {programs[key].title}
               </a>
             ))}
+            </div>
           </nav>
         </div>
 
         {/* Program content */}
-        <div className="mt-8">
+        <div className="mt-4">
           {Object.keys(programs).map((key) => (
             <div
               key={key}
-              className={`${activeTab === key ? "block" : "hidden"}`}
-              id={`${key}-content`}
+              className={`${activeTab === key ? "block" : "hidden"} scroll-mt-24`}
+              id={key}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   animate={
@@ -283,12 +293,12 @@ const ProgramDetails = () => {
                       : { opacity: 0, x: 30 }
                   }
                   transition={{ duration: 0.6 }}
-                  className="rounded-lg overflow-hidden shadow-xl"
+                  className="rounded-lg overflow-hidden shadow-xl aspect-[4/3]"
                 >
                   <img
                     src={programs[key].image}
                     alt={programs[key].title}
-                    className="w-full h-auto"
+                    className="w-full h-full object-cover object-top"
                   />
                 </motion.div>
               </div>

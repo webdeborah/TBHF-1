@@ -10,6 +10,7 @@ A modern responsive website for The Black History Foundation (TBHF), a non-profi
 - User-friendly donation system with various payment options
 - Volunteer application form and information
 - Contact form for inquiries and partnership opportunities
+- Admin dashboard for managing newsletter subscribers, volunteer applications, and volunteer positions (at `/admin`)
 
 ## Pages
 
@@ -62,12 +63,23 @@ The website follows a cohesive design system:
 pnpm install
 ```
 
-3. Run the development server:
+3. Configure Firebase (required for newsletter, volunteer forms, and admin):
+   - Create a project at [Firebase Console](https://console.firebase.google.com)
+   - Enable Firestore Database and Authentication (Email/Password)
+   - Copy `.env.example` to `.env.local` and add your Firebase config values
+   - Deploy Firestore rules: `firebase deploy --only firestore:rules`
+   - Create an admin user in Authentication, then add a document to the `admins` collection with the document ID set to that user's UID
+
+4. Run the development server:
 ```bash
 pnpm dev
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+5. Open your browser and navigate to `http://localhost:3000`
+
+## Admin Dashboard
+
+Access the admin dashboard at `/admin` to manage newsletter subscribers, volunteer applications, and volunteer positions. You must be logged in with an account that has a document in the Firestore `admins` collection (document ID = your user UID).
 
 ## Building for Production
 

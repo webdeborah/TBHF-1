@@ -17,8 +17,6 @@ const Footer = () => {
     getInvolved: [
       { name: "Volunteer", path: "/volunteer" },
       { name: "Donate", path: "/donate" },
-      { name: "Join Our Cruise", path: "/cruise" },
-      { name: "Partner With Us", path: "/contact#partner" },
     ],
     contact: [
       { name: "Contact Us", path: "/contact" },
@@ -120,7 +118,7 @@ const Footer = () => {
             &copy; {currentYear} The Black History Foundation. All rights
             reserved.
           </p>
-          {/* <div className="flex space-x-6">
+          <div className="flex flex-wrap gap-6 justify-center">
             <Link
               href="/privacy-policy"
               className="font-helvetica text-sm text-gray-400 hover:text-white transition-colors"
@@ -128,18 +126,12 @@ const Footer = () => {
               Privacy Policy
             </Link>
             <Link
-              href="/terms-of-service"
+              href="/terms-of-use"
               className="font-helvetica text-sm text-gray-400 hover:text-white transition-colors"
             >
-              Terms of Service
+              Terms of Use
             </Link>
-            <Link
-              href="/sitemap"
-              className="font-helvetica text-sm text-gray-400 hover:text-white transition-colors"
-            >
-              Sitemap
-            </Link>
-          </div> */}
+          </div>
         </div>
       </div>
     </footer>

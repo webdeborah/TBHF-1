@@ -81,7 +81,7 @@ const ContactHero = () => {
               </h3>
               <p className="font-helvetica text-[var(--text-secondary)]">
                 <a
-                  href="tel:+12025551234"
+                  href="tel:+16615246674"
                   className="hover:text-[var(--primary)]"
                 >
                   (661) 524-6674

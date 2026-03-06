@@ -1,7 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { DEFAULT_BOARD_MEMBERS } from "@/lib/board-of-directors";
+import type { BoardMember } from "@/lib/board-of-directors";
 import SectionHeading from "../common/SectionHeading";
 
 const TeamSection = () => {
@@ -9,52 +14,30 @@ const TeamSection = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+  const [teamMembers, setTeamMembers] = useState<(BoardMember & { id?: string })[]>(DEFAULT_BOARD_MEMBERS);
 
-  // Team members data
-  const teamMembers = [
-    {
-      name: "Theresa Kennedy",
-      role: "Director and President",
-      bio: "Theresa brings over 15 years of experience in non-profit leadership and a passion for educational equity.",
-      image: "/theresakennedy2.jpg",
-    },
-    {
-      name: "Deborah Sieh",
-      role: "Director of Web Development",
-      bio: "Deborah brings expert web development skills, combining creative design with functional precision to build impactful, user-friendly digital experiences.",
-      image: "/deborahsieh.jpg",
-    },
-    {
-      name: "Mike Evans",
-      role: "Director and Secretary",
-      bio: "Mike ensures organizational integrity and governance while driving strategic initiatives with a strong focus on compliance and operational excellence.",
-      image: "/MikeEvans.jpg",
-    },
-    {
-      name: "Antoine Hines",
-      role: "Board of Directors",
-      bio: "With over 30 years of leadership across the military, nonprofit, tech, and community sectors, Antoine made it his mission to build and scale systems that drive equity, sustainability, and measurable outcomes. As a 3x HBCU grad and Navy veteran, his approach is rooted in faith, fatherhood, and a belief that collaboration fuels generational change.",
-      image: "/AntoineHines.jpg",
-    },
-    {
-      name: "Jeff St-Louis",
-      role: "Board of Directors",
-      bio: "Jeff leverages his expertise in digital infrastructure and innovation to drive cutting-edge tech solutions that support and scale the Foundation's mission.",
-      image: "/JeffStLouis.jpg",
-    },
-    {
-      name: "Jacqui Kennedy",
-      role: "Director of Marketing",
-      bio: "Jacqui has a background in museum curation and specializes in artifact preservation.",
-      image: "/JacquiKennedy.jpg",
-    },
-    {
-      name: "Simba Magwanyata",
-      role: "Director and Treasurer",
-      bio: "Simba brings strategic financial oversight and treasury management expertise, ensuring transparent, efficient allocation of our resources.",
-      image: "/SimbaMagwanyata.jpg",
-    },
-  ];
+  useEffect(() => {
+    if (!db) return;
+    const fetchMembers = async () => {
+      try {
+        const q = query(
+          collection(db, "boardOfDirectors"),
+          orderBy("order", "asc")
+        );
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) return;
+        const data = snapshot.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+          order: docSnap.data().order ?? 0,
+        })) as (BoardMember & { id: string })[];
+        setTeamMembers(data);
+      } catch (err) {
+        console.error("Failed to fetch board members:", err);
+      }
+    };
+    fetchMembers();
+  }, []);
 
   return (
     <section
@@ -73,7 +56,7 @@ const TeamSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {teamMembers.map((member, index) => (
             <motion.div
-              key={index}
+              key={member.id ?? `${member.name}-${index}`}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}

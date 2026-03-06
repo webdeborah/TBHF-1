@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const ContactForm = () => {
   const [ref, inView] = useInView({
@@ -21,6 +23,7 @@ const ContactForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -34,38 +37,45 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    // Create email subject and body with form data
-    const subject = encodeURIComponent(`Contact Form: ${formState.subject}`);
-    const body = encodeURIComponent(
-      `Name: ${formState.name}\n` +
-        `Email: ${formState.email}\n` +
-        `Phone: ${formState.phone}\n` +
-        `Subject: ${formState.subject}\n\n` +
-        `Message:\n${formState.message}`,
-    );
-
-    // Create mailto URL
-    const mailtoUrl = `mailto:info@TheBlackHistoryFoundation.org?subject=${subject}&body=${body}`;
-
-    // Open the mailto link
-    window.location.href = mailtoUrl;
-
-    // Reset loading state after a brief delay
-    setTimeout(() => {
+    if (!db) {
+      setError("Message submission is temporarily unavailable.");
       setLoading(false);
-      // Optionally reset the form
-      setFormState({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "contactMessages"), {
+        ...formState,
+        submittedAt: serverTimestamp(),
+        status: "pending",
       });
-    }, 500);
+
+      // Send email notifications via Resend (info, Board, confirmation)
+      const emailRes = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+      if (!emailRes.ok) {
+        console.warn("Emails could not be sent:", await emailRes.text());
+        // Don't fail the submission - data is saved to Firebase
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to send message. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,6 +98,11 @@ const ContactForm = () => {
 
             {!submitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="p-3 bg-red-50 text-red-700 rounded-md text-sm">
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label
@@ -411,12 +426,6 @@ const ContactForm = () => {
                     We collaborate with organizations, businesses, schools, and
                     community groups.
                   </p>
-                  <a
-                    href="#"
-                    className="inline-block font-helvetica font-bold text-[var(--primary)] hover:text-[var(--primary-dark)] transition-colors"
-                  >
-                    Contact us for Partnership opportunities →
-                  </a>
                 </div>
               </div>
             </div>

@@ -4,7 +4,6 @@ import MissionSection from "@/components/home/MissionSection";
 import ProgramsSection from "@/components/home/ProgramsSection";
 
 import GetInvolvedSection from "@/components/home/GetInvolvedSection";
-import FaqSection from "@/components/home/FaqSection";
 import NewsletterSection from "@/components/home/NewsletterSection";
 import type { Metadata } from "next";
 
@@ -44,7 +43,6 @@ export default function Home() {
       <ProgramsSection />
 
       <GetInvolvedSection />
-      <FaqSection />
       <NewsletterSection />
     </Layout>
   );

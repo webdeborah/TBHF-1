@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const ApplicationForm = () => {
   const [ref, inView] = useInView({
@@ -27,6 +29,7 @@ const ApplicationForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [consent, setConsent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -60,35 +63,9 @@ const ApplicationForm = () => {
     setConsent(e.target.checked);
   };
 
-  const generateMailtoLink = () => {
-    const subject = encodeURIComponent(
-      "Volunteer Application - " + formState.name,
-    );
-
-    // Format interests as a comma-separated list
-    const interestsFormatted = formState.interests.join(", ");
-
-    // Build the email body with all form fields
-    let body = encodeURIComponent(
-      `Name: ${formState.name}\n` +
-        `Email: ${formState.email}\n` +
-        `Phone: ${formState.phone}\n` +
-        `Location: ${formState.city}, ${formState.state}\n\n` +
-        `Areas of Interest: ${interestsFormatted}\n\n` +
-        `Relevant Experience:\n${formState.experience}\n\n` +
-        `Availability: ${formState.availability}\n\n` +
-        `Motivation:\n${formState.motivation}\n\n` +
-        `Referral Source: ${formState.referral}\n\n` +
-        `Consent to Communications: Yes`,
-    );
-
-    return `mailto:volunteer@TheBlackHistoryFoundation.org?subject=${subject}&body=${body}`;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate form
     if (
       !formState.name ||
       !formState.email ||
@@ -104,16 +81,42 @@ const ApplicationForm = () => {
     }
 
     setLoading(true);
+    setError(null);
 
-    // Generate and open mailto link
-    const mailtoLink = generateMailtoLink();
-    window.location.href = mailtoLink;
-
-    // Set a timeout to show the success message after the email client opens
-    setTimeout(() => {
-      setSubmitted(true);
+    if (!db) {
+      setError("Application submission is temporarily unavailable.");
       setLoading(false);
-    }, 1500);
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "volunteerApplications"), {
+        ...formState,
+        submittedAt: serverTimestamp(),
+        status: "pending",
+      });
+
+      // Send email notifications via Resend (admin + volunteer confirmation)
+      const emailRes = await fetch("/api/volunteer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+      if (!emailRes.ok) {
+        console.warn("Emails could not be sent:", await emailRes.text());
+        // Don't fail the submission - data is saved to Firebase
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to submit application. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const volunteerAreas = [
@@ -155,6 +158,11 @@ const ApplicationForm = () => {
                 onSubmit={handleSubmit}
                 className="bg-[var(--bg-secondary)] p-8 rounded-lg"
               >
+                {error && (
+                  <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-md text-sm">
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label
@@ -408,8 +416,8 @@ const ApplicationForm = () => {
 
                 <div className="mt-4 text-center">
                   <p className="text-sm text-gray-500">
-                    Your email client will open to send the application to
-                    volunteer@TheBlackHistoryFoundation.org
+                    Your application will be reviewed by our volunteer
+                    coordinator within 3-5 business days.
                   </p>
                 </div>
               </form>
